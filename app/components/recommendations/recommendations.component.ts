@@ -5,9 +5,7 @@ import { Router } from '@angular/router';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../../service/movie.service';
 import { Observable } from 'rxjs';
-
-const imageUrl = (size: string, filePath: string) => `http://image.tmdb.org/t/p/${size}/${filePath}`;
-const dummyPosterUrl = `app/images/movie-reel.jpg`;
+import { Util } from "../../util/movie.util";
 
 @Component({
     moduleId: module.id,
@@ -18,7 +16,6 @@ const dummyPosterUrl = `app/images/movie-reel.jpg`;
 
 export class RecommendationsComponent implements OnInit
 {
-    // movies: Observable<Movie[]>;
     movies: Movie[] = [];
 
     addedMovie: string = '';
@@ -39,9 +36,9 @@ export class RecommendationsComponent implements OnInit
     {
         this.movies = this.movieService.discoverMoviesFiltered();
     }
-    getMoviePoster(movie: Movie)
-    {
-        return movie.poster_path != '' ? imageUrl('w342', movie.poster_path) : dummyPosterUrl;
+
+    getMoviePoster(movie: Movie): string {
+        return new Util().getMoviePoster(movie);
     }
 
     gotoDetail(movie: Movie): void

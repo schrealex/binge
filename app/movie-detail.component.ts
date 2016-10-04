@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, Output, SimpleChange } from '@angular/c
 import { Movie } from './model/movie';
 import { MovieInformation } from "./model/movie-information";
 import { MovieService } from './service/movie.service';
+import { Util } from "./util/movie.util";
+import { Person } from "./model/person";
 
 @Component({
     moduleId: module.id,
@@ -43,6 +45,14 @@ export class MovieDetailComponent
                 error => console.log('ERROR: ' + error),
                 () => console.log('Retrieving movie information for', movie.title, 'complete.')
             );
+    }
+
+    getMoviePoster(movie: Movie): string {
+        return new Util().getMoviePoster(movie);
+    }
+
+    getProfileImage(person: Person): string {
+        return new Util().getProfileImage(person);
     }
 
     onAddFavorite() {

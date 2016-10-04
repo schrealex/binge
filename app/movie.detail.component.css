@@ -14,6 +14,11 @@
     font-weight: bold;
 }
 
+.subtext {
+    font-size: 11px;
+    color: silver;
+}
+
 .favoriteLink {
     color: #ff0000;
     font-size: 32px;
@@ -21,4 +26,30 @@
 
 .favoriteLink.grey {
     color: #808080;
+}
+
+ul {
+    list-style-type: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+.persons li {
+    height: 78px;
+}
+
+.persons span {
+    display: block;
+}
+
+.persons span.personPhoto {
+    float: left;
+    margin: 5px;
+}
+
+.personName {
+    font-weight: bold;
 }

@@ -2,16 +2,43 @@
 
     <span class="favoriteLink" [class.grey]="!movieInformation.favorite" (click)="onAddFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></span>
 
-    <img src="{{ movieInformation.poster}}" class="moviePosterBig"/>
+    <img [src]="getMoviePoster(movieInformation)" class="moviePosterBig"/>
 
-    <h1>{{ movieInformation.title }} ({{ movieInformation.year}})</h1>
+    <h1>{{ movieInformation.title }} ({{ movieInformation.releaseDate | dateFormat:'yyyy' }})</h1>
+
+    <div class="subtext">
+        {{ movieInformation.runtime }} minutes
+    </div>
 
     {{ movieInformation.plot }}
 
+    <h3>Genres</h3>
+    <span *ngFor="let genre of movieInformation.genres; let isLast = last">{{ genre.name }}{{ isLast ? '' : ', '}}</span>
+
     <h3>Actors</h3>
-    {{ movieInformation.actors}}
-    <h3>Director</h3>
-    {{ movieInformation.director }}
-    <h3>Writer</h3>
-    {{ movieInformation.writer }}
+    <ul class="persons">
+        <li *ngFor="let actor of movieInformation.actors">
+            <span class="personPhoto"><img [src]="getProfileImage(actor)"/></span>
+            <span class="personName">{{ actor.name }}</span>
+            <span>{{ actor.character }}</span>
+        </li>
+    </ul>
+
+    <h3>Directing</h3>
+    <ul class="persons">
+        <li *ngFor="let director of movieInformation.director">
+            <span class="personPhoto"><img [src]="getProfileImage(director)"/></span>
+            <span class="personName">{{ director.name }}</span>
+            <span>{{ director.job }}</span>
+        </li>
+    </ul>
+
+    <h3>Writing</h3>
+    <ul class="persons">
+        <li *ngFor="let writer of movieInformation.writer">
+            <span class="personPhoto"><img [src]="getProfileImage(writer)"/></span>
+            <span class="personName">{{ writer.name }}</span>
+            <span>{{ writer.job }}</span>
+        </li>
+    </ul>
 </div>

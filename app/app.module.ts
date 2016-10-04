@@ -16,6 +16,8 @@ import { GamesComponent } from './games.component';
 import { ApiAuthenticationService } from './service/api-authentication.service';
 import { MovieService } from './service/movie.service';
 
+import { DateFormatPipe } from "./util/date-format.pipe";
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -30,7 +32,8 @@ import { MovieService } from './service/movie.service';
         MoviesComponent,
         MovieAddComponent,
         MovieDetailComponent,
-        GamesComponent
+        GamesComponent,
+        DateFormatPipe
     ],
     providers: [
         ApiAuthenticationService,
