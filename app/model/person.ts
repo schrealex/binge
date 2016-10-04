@@ -15,44 +15,4 @@ export class Person
         this._name = name;
         this._profilePath = profilePath;
     }
-
-    get id(): number
-    {
-        return this._id;
-    }
-
-    set id(value: number)
-    {
-        this._id = value;
-    }
-
-    get creditId(): string
-    {
-        return this._creditId;
-    }
-
-    set creditId(value: string)
-    {
-        this._creditId = value;
-    }
-
-    get name(): string
-    {
-        return this._name;
-    }
-
-    set name(value: string)
-    {
-        this._name = value;
-    }
-
-    get profilePath(): string
-    {
-        return this._profilePath;
-    }
-
-    set profilePath(value: string)
-    {
-        this._profilePath = value;
-    }
 }

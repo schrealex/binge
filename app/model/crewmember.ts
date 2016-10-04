@@ -17,24 +17,4 @@ export class CrewMember extends Person
         this._department = department;
         this._job = job;
     }
-
-    get department(): string
-    {
-        return this._department;
-    }
-
-    set department(value: string)
-    {
-        this._department = value;
-    }
-
-    get job(): string
-    {
-        return this._job;
-    }
-
-    set job(value: string)
-    {
-        this._job = value;
-    }
 }

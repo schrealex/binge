@@ -20,34 +20,4 @@ export class Actor extends Person
         this._character = character;
         this._order = order;
     }
-
-    get castId(): string
-    {
-        return this._castId;
-    }
-
-    set castId(value: string)
-    {
-        this._castId = value;
-    }
-
-    get character(): string
-    {
-        return this._character;
-    }
-
-    set character(value: string)
-    {
-        this._character = value;
-    }
-
-    get order(): number
-    {
-        return this._order;
-    }
-
-    set order(value: number)
-    {
-        this._order = value;
-    }
 }
