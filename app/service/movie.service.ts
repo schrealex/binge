@@ -9,18 +9,21 @@ import { Movie } from '../model/movie';
 import { MovieInformation } from "../model/movie-information";
 
 import { ApiAuthenticationService } from './api-authentication.service';
+import { Actor } from "../model/actor";
+import { CrewMember } from "../model/crewmember";
 
 const apiKey = 'f16bfeb0210b43f1f12d8d4ccc114ee9';
 const baseUrl = ' https://api.themoviedb.org/3';
 
-const movieUrl = `${baseUrl}/movie/550?api_key=${apiKey}`;
+
 
 const addToFavoritesUrl = (sessionId) => `${baseUrl}/account/{account_id}/favorite?api_key=${apiKey}&session_id=${sessionId}`;
 const favoriteMoviesUrl = (sessionId) => `${baseUrl}/account/{account_id}/favorite/movies?api_key=${apiKey}&session_id=${sessionId}`;
 const discoverMoviesUrl = `${baseUrl}/discover/movie?api_key=${apiKey}`;
 
-const searchMoviesUrl = (title) => `http://www.omdbapi.com/?s=${title}`;
-const movieInformationUrl = (imdbId) => `http://www.omdbapi.com/?i=${imdbId}`;
+const searchMoviesUrl = (query) => `${baseUrl}/search/movie?api_key=${apiKey}&query=${query}`;
+const movieInformationUrl = (movieId) => `${baseUrl}/movie/${movieId}?api_key=${apiKey}`;
+const movieCreditsUrl = (movieId) => `${baseUrl}/movie/${movieId}/credits?api_key=${apiKey}`;
 
 @Injectable()
 export class MovieService
@@ -35,11 +38,8 @@ export class MovieService
     discoverMovies(): Observable<Movie[]>
     {
         console.log(discoverMoviesUrl);
-        return this.http.get(discoverMoviesUrl).map(result =>
-        {
-            return <Movie[]> result.json().results;
-        })
-        .catch(this.handleError);
+        return this.http.get(discoverMoviesUrl).map(result => <Movie[]> result.json().results)
+            .map(this.mapResponseToMovies()).catch(this.handleError);
     }
 
     addToFavorites(movie: Movie): Observable<any> {
@@ -59,34 +59,9 @@ export class MovieService
     {
         return this.apiAuthenticationService.getSessionId().flatMap(sessionId =>
         {
-            console.log(favoriteMoviesUrl(sessionId));
-            return this.http.get(favoriteMoviesUrl(sessionId)).map(result =>
-            {
-                return <Movie[]> result.json().results;
-            })
-            .catch(this.handleError);
+            return this.http.get(favoriteMoviesUrl(sessionId)).map(result => <Movie[]> result.json().results)
+                .map(this.mapResponseToMovies()).catch(this.handleError);
         });
-
-        // console.log(favoriteMovies(sessionId));
-        // return this.http.get(favoriteMovies(sessionId)).map(result => {
-        //         <Movie[]> result.json();
-        //         console.log(result);
-        //         console.log(result.json());
-        //     })
-            // .map((movies: Array<any>) =>
-            //     {
-            //         let result: Array<Movie> = [];
-            //         if (movies)
-            //         {
-            //             movies.forEach((movie) =>
-            //             {
-            //                 result.push(new Movie(movie.imdbID, movie.Title, movie.Year, movie.Poster, false));
-            //             });
-            //         }
-            //         return result;
-            //     }
-            // )
-            // .catch(this.handleError);
     }
 
     discoverMoviesFiltered(): Movie[]
@@ -103,7 +78,6 @@ export class MovieService
                     let addMovieToFilteredMovies: boolean = true;
                     favoritedMovies.forEach(function(favoriteMovie) {
                         if(discoveredMovie.id == favoriteMovie.id) {
-                            console.log(discoveredMovie.title + " == " + favoriteMovie.title);
                             addMovieToFilteredMovies = false;
                         }
                     });
@@ -121,30 +95,65 @@ export class MovieService
     searchMovies(title: string): Observable<Movie[]>
     {
         console.log(searchMoviesUrl(title));
-        return this.http.get(searchMoviesUrl(title)).map(result => <Movie[]> result.json().Search)
-            .map((movies: Array<any>) =>
-                {
-                    let result: Array<Movie> = [];
-                    if (movies)
-                    {
-                        movies.forEach((movie) =>
-                        {
-                            result.push(new Movie(movie.imdbID, movie.Title, movie.Year, movie.Poster, false));
-                        });
-                    }
-                    return result;
-                }
-            ).catch(this.handleError);
+        return this.http.get(searchMoviesUrl(title)).map(result => <Movie[]> result.json().results)
+            .map(this.mapResponseToMovies()).catch(this.handleError);
     }
 
     getMovieInformation(movie: Movie): Observable<MovieInformation>
     {
         console.log(movieInformationUrl(movie.id));
 
-        return this.http.get(movieInformationUrl(movie.id)).map(result => result.json())
-            .map((m: any) => new MovieInformation(m.imdbID, m.Title, m.Year, m.Genre, m.Runtime, m.Poster, m.Director,
-                m.Writer, m.Actors, m.Plot, m.Metascore, m.imdbRating, m.imdbVotes, m.Type, movie.favorite))
+        return this.http.get(movieInformationUrl(movie.id)).flatMap(response => {
+            let m = response.json();
+            console.log(m);
+            let mi: MovieInformation  = new MovieInformation(m.id, m.imdb_id, m.title, m.original_title, m.release_date, m.genres,
+                m.runtime, m.poster_path, m.backdrop_path, [], [], [], m.overview, m.tagline, m.vote_average, m.vote_count, movie.favorite);
+
+            console.log(movieCreditsUrl(movie.id));
+            return this.http.get(movieCreditsUrl(movie.id)).map(response => response.json()).map((m: any) => {
+                m.cast.forEach((a) =>
+                {
+                    mi.actors.push(new Actor(a.id, a.credit_id, a.name, a.profile_path, a.cast_id, a.character, a.order));
+                });
+                m.crew.forEach((c) =>
+                {
+                    if(c.department == 'Directing') {
+                        mi.director.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                    }
+                });
+                m.crew.forEach((c) =>
+                {
+                    if(c.department == 'Writing') {
+                        mi.writer.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                    }
+                });
+                return mi;
+            })
             .catch(this.handleError);
+        })
+        .catch(this.handleError);
+
+        // return this.http.get(movieInformationUrl(movie.id)).map(result => result.json())
+        //     .map((m: any) => new MovieInformation(m.id, m.imdb_id, m.title, m.original_title, m.release_date, m.genres,
+        //         m.runtime, m.poster_path, m.backdrop_path, '', '', '', m.overview, m.tagline, m.vote_average, m.vote_count, movie.favorite))
+        //     .catch(this.handleError);
+    }
+
+    private mapResponseToMovies(): any {
+        return (movies: Array<any>) =>
+        {
+            let response: Array<Movie> = [];
+            if (movies)
+            {
+                movies.forEach((movie) =>
+                {
+                    response.push(new Movie(movie.id, movie.title, movie.release_date, movie.poster_path,
+                        movie.backdrop_path, movie.overview, movie.genre_ids, movie.vote_average,
+                        movie.vote_average, false));
+                });
+            }
+            return response;
+        }
     }
 
     private handleError(error: Response)

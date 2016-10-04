@@ -5,6 +5,8 @@ import { Movie } from './model/movie';
 
 import { MovieService } from './service/movie.service';
 
+import { Util } from './util/movie.util';
+
 @Component({
     moduleId: module.id,
     selector: 'movies',
@@ -14,8 +16,6 @@ import { MovieService } from './service/movie.service';
 
 export class MoviesComponent
 {
-
-
     selectedMovie: Movie = null;
     movies: Movie[] = [];
     searchMovieTitle: string = '';
@@ -46,6 +46,10 @@ export class MoviesComponent
     {
         this.selectedMovie = movie;
         console.log(this.selectedMovie);
+    }
+
+    getMoviePoster(movie: Movie): string {
+        return new Util().getMoviePoster(movie);
     }
 
     // setFavorite(favorite: boolean)

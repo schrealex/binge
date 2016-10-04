@@ -25,9 +25,9 @@
             </tr>
             <tr *ngFor="let movie of movies" (click)="selectMovie(movie)">
                 <td><i [class.grey]="!movie.favorite" class="fa fa-heart" aria-hidden="true"></i></td>
-                <td><img [src]="movie.poster != 'N/A' ? movie.poster : 'app/images/movie-reel.jpg'" [alt]="movie.title" class="moviePoster"/></td>
+                <td><img [src]="getMoviePoster(movie)" [alt]="movie.title" class="moviePoster"/></td>
                 <td class="movieTitle">{{ movie.title }}</td>
-                <td><span class="movieYear">{{ movie.year }}</span></td>
+                <td><span class="movieYear">{{ movie.releaseDate | dateFormat:'yyyy' }}</span></td>
             </tr>
         </table>
     </div>
