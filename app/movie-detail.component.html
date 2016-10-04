@@ -16,29 +16,35 @@
     <span *ngFor="let genre of movieInformation.genres; let isLast = last">{{ genre.name }}{{ isLast ? '' : ', '}}</span>
 
     <h3>Actors</h3>
-    <ul class="persons">
-        <li *ngFor="let actor of movieInformation.actors">
-            <span class="personPhoto"><img [src]="getProfileImage(actor)"/></span>
-            <span class="personName">{{ actor.name }}</span>
-            <span>{{ actor.character }}</span>
+    <ul class="row persons">
+        <li class="col-lg-5" *ngFor="let actor of movieInformation.actors">
+            <div class="col-lg-5 personPhoto"><img [src]="getProfileImage(actor)"/></div>
+            <div class="col-lg-7">
+                <div class="row personName">{{ actor.name }}</div>
+                <div class="row">{{ actor.character }}</div>
+            </div>
         </li>
     </ul>
 
     <h3>Directing</h3>
-    <ul class="persons">
-        <li *ngFor="let director of movieInformation.director">
-            <span class="personPhoto"><img [src]="getProfileImage(director)"/></span>
-            <span class="personName">{{ director.name }}</span>
-            <span>{{ director.job }}</span>
+    <ul class="row persons">
+        <li class="col-lg-5" *ngFor="let director of movieInformation.director">
+            <div class="col-lg-5 personPhoto"><img [src]="getProfileImage(director)"/></div>
+            <div class="col-lg-7">
+                <div class="row personName">{{ director.name }}</div>
+                <div class="row">{{ director.job }}</div>
+            </div>
         </li>
     </ul>
 
     <h3>Writing</h3>
-    <ul class="persons">
-        <li *ngFor="let writer of movieInformation.writer">
-            <span class="personPhoto"><img [src]="getProfileImage(writer)"/></span>
-            <span class="personName">{{ writer.name }}</span>
-            <span>{{ writer.job }}</span>
+    <ul class="row persons">
+        <li class="col-lg-5" *ngFor="let writer of movieInformation.writer">
+            <div class="col-lg-5 personPhoto"><img [src]="getProfileImage(writer)"/></div>
+            <div class="col-lg-7">
+                <div class="row personName">{{ writer.name }}</div>
+                <div class="row">{{ writer.job }}</div>
+            </div>
         </li>
     </ul>
 </div>
