@@ -15,9 +15,9 @@ const dummyProfileUrl = `app/images/profile-small.jpg`;
 
 export class Util
 {
-    getMoviePoster(movie: Movie)
+    getMoviePoster(media: any)
     {
-        return movie.posterPath != null ? imageUrl('w342', movie.posterPath) : dummyPosterUrl;
+        return media.posterPath != null ? imageUrl('w342', media.posterPath) : dummyPosterUrl;
     }
 
     getProfileImage(person: Person)

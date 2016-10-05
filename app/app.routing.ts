@@ -7,6 +7,7 @@ import { MovieDetailComponent } from './movie-detail.component';
 import { GamesComponent } from './games.component';
 import { MovieAddComponent } from "./movie-add.component";
 import { RecommendationsComponent } from "./components/recommendations/recommendations.component";
+import { SeriesComponent } from "./components/series/series.component";
 
 const appRoutes: Routes = [
     {
@@ -33,6 +34,10 @@ const appRoutes: Routes = [
     {
         path: 'movie/add',
         component: MovieAddComponent
+    },
+    {
+        path: 'series',
+        component: SeriesComponent
     },
     {
         path: 'games',

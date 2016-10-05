@@ -8,13 +8,16 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { DashboardComponent }  from './dashboard.component';
 import { RecommendationsComponent }  from './components/recommendations/recommendations.component';
-import { MoviesComponent }  from './movies.component';
+import { MoviesComponent } from './movies.component';
 import { MovieAddComponent }  from './movie-add.component';
 import { MovieDetailComponent } from './movie-detail.component';
+import { SeriesComponent } from './components/series/series.component';
 import { GamesComponent } from './games.component';
 
 import { ApiAuthenticationService } from './service/api-authentication.service';
+import { MediaService } from './service/media.service';
 import { MovieService } from './service/movie.service';
+import { SerieService } from './service/serie.service';
 
 import { DateFormatPipe } from "./util/date-format.pipe";
 
@@ -32,12 +35,15 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         MoviesComponent,
         MovieAddComponent,
         MovieDetailComponent,
+        SeriesComponent,
         GamesComponent,
         DateFormatPipe
     ],
     providers: [
         ApiAuthenticationService,
-        MovieService
+        MediaService,
+        MovieService,
+        SerieService
     ],
     bootstrap: [AppComponent]
 })

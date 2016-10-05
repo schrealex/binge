@@ -1,14 +1,14 @@
-import { Media } from "./media";
 import { Genre } from "./genre";
+import { Media } from "./media";
 
-export class Movie extends Media
+export class Serie extends Media
 {
-    private _releaseDate: Date;
+    private _airDate: Date;
 
     constructor(public id: number,
                 public title: string,
                 public originalTitle: string,
-                public releaseDate: Date,
+                public airDate: Date,
                 public posterPath: string,
                 public backdropPath: string,
                 public plot: string,
@@ -19,6 +19,6 @@ export class Movie extends Media
     {
         super(id, title, originalTitle, posterPath, backdropPath, plot, genres, rating, votes, favorite);
 
-        this._releaseDate = releaseDate;
+        this._airDate = airDate;
     }
 }

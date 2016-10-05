@@ -147,7 +147,7 @@ export class MovieService
             {
                 movies.forEach((movie) =>
                 {
-                    response.push(new Movie(movie.id, movie.title, movie.release_date, movie.poster_path,
+                    response.push(new Movie(movie.id, movie.title, movie.orginal_title, movie.release_date, movie.poster_path,
                         movie.backdrop_path, movie.overview, movie.genre_ids, movie.vote_average,
                         movie.vote_average, false));
                 });
