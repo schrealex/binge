@@ -18,8 +18,6 @@ export class MovieDetailComponent
     @Input() movie: Movie;
     @Output() addFavorite = new EventEmitter();
 
-    // @Output() favorite: EventEmitter<any> = new EventEmitter();
-
     movieInformation: MovieInformation;
 
     constructor(private movieService: MovieService)

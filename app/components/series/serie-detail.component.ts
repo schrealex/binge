@@ -1,28 +1,30 @@
 import { Component, EventEmitter, Input, Output, SimpleChange } from '@angular/core';
 
-import { Movie } from '../../model/movie';
-import { MovieInformation } from "../../model/movie-information";
-import { MovieService } from '../../service/movie.service';
-import { Util } from "../../util/movie.util";
+import { Serie } from '../../model/serie';
+import { SerieInformation } from "../../model/serie-information";
+import { MediaInformation } from "../../model/media-information";
 import { Person } from "../../model/person";
+
+import { MediaService } from '../../service/media.service';
+import { Util } from "../../util/movie.util";
+
+
 
 @Component({
     moduleId: module.id,
-    selector: 'movie-detail',
-    templateUrl: 'movie-detail.component.html',
-    styleUrls: ['movie.detail.component.css']
+    selector: 'serie-detail',
+    templateUrl: 'serie-detail.component.html',
+    styleUrls: ['serie.detail.component.css']
 })
 
-export class MovieDetailComponent
+export class SerieDetailComponent
 {
-    @Input() movie: Movie;
+    @Input() serie: Serie;
     @Output() addFavorite = new EventEmitter();
 
-    // @Output() favorite: EventEmitter<any> = new EventEmitter();
+    serieInformation: MediaInformation;
 
-    movieInformation: MovieInformation;
-
-    constructor(private movieService: MovieService)
+    constructor(private mediaService: MediaService)
     {
 
     }
@@ -30,25 +32,30 @@ export class MovieDetailComponent
     ngOnChanges(changes: SimpleChange)
     {
         console.log(changes);
-        this.getMovieInformation(this.movie);
+        this.getSerieInformation(this.serie, 'tv');
     }
 
-    getMovieInformation(movie: Movie)
+    getSerieInformation(serie: Serie, type: string)
     {
-        this.movieService.getMovieInformation(movie)
+        this.mediaService.getMediaInformation(serie, type)
             .subscribe(
-                movieData =>
+                serieData =>
                 {
-                    this.movieInformation = movieData;
-                    console.log(this.movieInformation);
+                    this.serieInformation = serieData;
+                    console.log('SerieInformation');
+                    console.log(this.serieInformation);
                 },
                 error => console.log('ERROR: ' + error),
-                () => console.log('Retrieving movie information for', movie.title, 'complete.')
+                () => console.log('Retrieving serie information for', serie.title, 'complete.')
             );
     }
 
-    getMoviePoster(movie: Movie): string {
-        return new Util().getMoviePoster(movie);
+    getAverageRuntime(serieInformation: SerieInformation) {
+        return serieInformation.episodeRuntime.reduce((a,b) => (a+b)) / serieInformation.episodeRuntime.length;
+    }
+
+    getSeriePoster(serie: Serie): string {
+        return new Util().getMoviePoster(serie);
     }
 
     getProfileImage(person: Person): string {
@@ -56,8 +63,8 @@ export class MovieDetailComponent
     }
 
     onAddFavorite() {
-        if(this.movie) {
-            this.addFavorite.next(this.movie);
+        if(this.serie) {
+            this.addFavorite.next(this.serie);
         }
     }
 

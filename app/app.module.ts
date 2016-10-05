@@ -12,6 +12,7 @@ import { MoviesComponent } from './movies.component';
 import { MovieAddComponent }  from './movie-add.component';
 import { MovieDetailComponent } from './movie-detail.component';
 import { SeriesComponent } from './components/series/series.component';
+import { SerieDetailComponent } from './components/series/serie-detail.component';
 import { GamesComponent } from './games.component';
 
 import { ApiAuthenticationService } from './service/api-authentication.service';
@@ -36,6 +37,7 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         MovieAddComponent,
         MovieDetailComponent,
         SeriesComponent,
+        SerieDetailComponent,
         GamesComponent,
         DateFormatPipe
     ],

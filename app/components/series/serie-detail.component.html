@@ -1,50 +1,50 @@
-<div class="jumbotron" *ngIf="mediaInformation">
+<div class="jumbotron" *ngIf="serieInformation">
 
-    <span class="favoriteLink" [class.grey]="!mediaInformation.favorite" (click)="onAddFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></span>
+    <span class="favoriteLink" [class.grey]="!serieInformation.favorite" (click)="onAddFavorite()"><i class="fa fa-heart" aria-hidden="true"></i></span>
 
-    <img [src]="getMediaPoster(mediaInformation)" class="seriePosterBig"/>
+    <img [src]="getSeriePoster(serieInformation)" class="mediaPosterBig"/>
 
-    <h1>{{ mediaInformation.title }} ({{ mediaInformation.releaseDate | dateFormat:'yyyy' }})</h1>
+    <h1>{{ serieInformation.title }} ({{ serieInformation.firstAirDate | dateFormat:'yyyy' }})</h1>
 
     <div class="subtext">
-        {{ mediaInformation.runtime }} minutes
+        ~ {{ getAverageRuntime(serieInformation) }} minutes
     </div>
 
-    {{ mediaInformation.plot }}
+    {{ serieInformation.plot }}
 
     <h3>Genres</h3>
-    <span *ngFor="let genre of mediaInformation.genres; let isLast = last">{{ genre.name }}{{ isLast ? '' : ', '}}</span>
+    <span *ngFor="let genre of serieInformation.genres; let isLast = last">{{ genre.name }}{{ isLast ? '' : ', '}}</span>
 
-    <h3>Actors</h3>
-    <ul class="row persons">
-        <li class="col-lg-5" *ngFor="let actor of mediaInformation.actors">
-            <div class="col-lg-5 personPhoto"><img [src]="getProfileImage(actor)"/></div>
-            <div class="col-lg-7">
-                <div class="row personName">{{ actor.name }}</div>
-                <div class="row">{{ actor.character }}</div>
-            </div>
-        </li>
-    </ul>
+    <!--<h3>Actors</h3>-->
+    <!--<ul class="row persons">-->
+        <!--<li class="col-lg-5" *ngFor="let actor of serieInformation.actors">-->
+            <!--<div class="col-lg-5 personPhoto"><img [src]="getProfileImage(actor)"/></div>-->
+            <!--<div class="col-lg-7">-->
+                <!--<div class="row personName">{{ actor.name }}</div>-->
+                <!--<div class="row">{{ actor.character }}</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
 
-    <h3>Directing</h3>
-    <ul class="row persons">
-        <li class="col-lg-5" *ngFor="let director of mediaInformation.director">
-            <div class="col-lg-5 personPhoto"><img [src]="getProfileImage(director)"/></div>
-            <div class="col-lg-7">
-                <div class="row personName">{{ director.name }}</div>
-                <div class="row">{{ director.job }}</div>
-            </div>
-        </li>
-    </ul>
+    <!--<h3>Directing</h3>-->
+    <!--<ul class="row persons">-->
+        <!--<li class="col-lg-5" *ngFor="let director of serieInformation.director">-->
+            <!--<div class="col-lg-5 personPhoto"><img [src]="getProfileImage(director)"/></div>-->
+            <!--<div class="col-lg-7">-->
+                <!--<div class="row personName">{{ director.name }}</div>-->
+                <!--<div class="row">{{ director.job }}</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
 
-    <h3>Writing</h3>
-    <ul class="row persons">
-        <li class="col-lg-5" *ngFor="let writer of mediaInformation.writer">
-            <div class="col-lg-5 personPhoto"><img [src]="getProfileImage(writer)"/></div>
-            <div class="col-lg-7">
-                <div class="row personName">{{ writer.name }}</div>
-                <div class="row">{{ writer.job }}</div>
-            </div>
-        </li>
-    </ul>
+    <!--<h3>Writing</h3>-->
+    <!--<ul class="row persons">-->
+        <!--<li class="col-lg-5" *ngFor="let writer of serieInformation.writer">-->
+            <!--<div class="col-lg-5 personPhoto"><img [src]="getProfileImage(writer)"/></div>-->
+            <!--<div class="col-lg-7">-->
+                <!--<div class="row personName">{{ writer.name }}</div>-->
+                <!--<div class="row">{{ writer.job }}</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
 </div>

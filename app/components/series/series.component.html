@@ -32,6 +32,6 @@
         </table>
     </div>
     <div class="col-lg-6" *ngIf="selectedSerie">
-        <!--<serie-detail [movie]="selectedSerie" (addFavorite)="onAddFavorite($event)"></serie-detail>-->
+        <serie-detail [serie]="selectedSerie" (addFavorite)="onAddFavorite($event)"></serie-detail>
     </div>
 </div>

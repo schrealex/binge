@@ -13,7 +13,6 @@ const movieDbUrl = 'https://www.themoviedb.org';
 const username = 'CE_REAL';
 const password = 'SiNGInfeGOnEiDEcTOPU';
 
-
 const requestTokenUrl = `${baseUrl}/authentication/token/new?api_key=${apiKey}`;
 const userPermissionUrl = (requestToken) => `${movieDbUrl}/authenticate/${requestToken}`;
 const validateWithLoginUrl = (requestToken) => `${baseUrl}/authentication/token/validate_with_login?api_key=${apiKey}&username=${username}&password=${password}&request_token=${requestToken}`;
@@ -22,9 +21,6 @@ const sessionIdUrl = (requestToken) => `${baseUrl}/authentication/session/new?ap
 @Injectable()
 export class ApiAuthenticationService
 {
-    private requestToken: string = '';
-    private sessionId: string = '';
-
     constructor(private http: Http)
     {
 

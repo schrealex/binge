@@ -1,61 +1,56 @@
+import { MediaInformation } from "./media-information";
 import { Genre } from "./genre";
-import { Actor } from "./actor";
-import { CrewMember } from "./crewmember";
 
-export class SerieInformation
+export class SerieInformation extends MediaInformation
 {
-    private _id: number;
-    private _imdbId: number;
-    private _title: string;
-    private _originalTitle: string;
+    private _inProduction: boolean;
+    private _createdBy: any[];
+    private _networks: any[];
+    private _numberOfEpisodes: number;
+    private _numberOfSeasons: number;
+    private _seasons: any[];
+    private _episodeRuntime: number[],;
     private _firstAirDate: Date;
-    private _genres: Genre[];
-    private _runtime: number;
-    private _posterPath: string;
-    private _backdropPath: string;
-    private _director: CrewMember[];
-    private _writer: CrewMember[];
-    private _actors: Actor[];
-    private _plot: string;
-    private _tagline: string;
-    private _rating: number;
-    private _votes: number;
+    private _lastAirDate: Date;
+    private _status: string;
+    private _type: string;
     private _favorite: boolean;
 
-    constructor(public id: number,
-                public imdbId: number,
+    constructor(
+                public id: number,
                 public title: string,
                 public originalTitle: string,
-                public firstAirDate: Date,
                 public genres: Genre[],
-                public runtime: number,
                 public posterPath: string,
                 public backdropPath: string,
-                public director: CrewMember[],
-                public writer: CrewMember[],
-                public actors: Actor[],
                 public plot: string,
-                public tagline: string,
                 public rating: number,
                 public votes: number,
-                public favorite: boolean = false)
+                public favorite: boolean = false,
+                public inProduction: boolean,
+                public createdBy: any[],
+                public networks: any[],
+                public numberOfEpisodes: number,
+                public numberOfSeasons: number,
+                public seasons: any[],
+                public episodeRuntime: number[],
+                public firstAirDate: Date,
+                public lastAirDate: Date,
+                public status: string,
+                public type: string)
     {
-        this._id = id;
-        this._imdbId = imdbId;
-        this._title = title;
-        this._originalTitle = originalTitle;
+        super(id, title, originalTitle, genres, posterPath, backdropPath, plot, rating, votes, favorite);
+
+        this._inProduction = inProduction;
+        this._createdBy = createdBy;
+        this._networks = networks;
+        this._numberOfEpisodes = numberOfEpisodes;
+        this._numberOfSeasons = numberOfSeasons;
+        this._seasons = seasons;
+        this._episodeRuntime = episodeRuntime;
         this._firstAirDate = firstAirDate;
-        this._genres = genres;
-        this._runtime = runtime;
-        this._posterPath = posterPath;
-        this._backdropPath = backdropPath;
-        this._director = director;
-        this._writer = writer;
-        this._actors = actors;
-        this._plot = plot;
-        this._tagline = tagline;
-        this._rating = rating;
-        this._votes = votes;
-        this._favorite = favorite;
+        this._lastAirDate = lastAirDate;
+        this._status = status;
+        this._type = type;
     }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Serie } from "../../model/serie";
+import { SerieInformation } from "../../model/serie-information";
 
 import { MediaService } from '../../service/media.service';
 import { SerieService } from '../../service/serie.service';
@@ -23,6 +24,8 @@ export class SeriesComponent
     searchSeriesTitle: string = '';
     seriesTitle: string = '';
 
+    serieInformation: SerieInformation;
+
     constructor(private router: Router, private mediaService: MediaService)
     {
 
@@ -43,21 +46,19 @@ export class SeriesComponent
         this.searchSeriesTitle = '';
     }
 
-    // searchSeries()
-    // {
-    //     this.seriesTitle = this.searchSeriesTitle;
-    //     this.serieService.searchSeries(this.seriesTitle)
-    //         .subscribe(
-    //             seriesData =>
-    //             {
-    //                 this.series = seriesData;
-    //                 console.log(this.series);
-    //             },
-    //             error => console.log('ERROR: ' + error),
-    //             () => console.log('Searching series with titles containing', this.seriesTitle, 'complete.')
-    //         );
-    //     this.searchSeriesTitle = '';
-    // }
+    getSerieInformation(serie: Serie)
+    {
+        this.mediaService.getMediaInformation<Serie, SerieInformation>(serie, 'tv')
+            .subscribe(
+                serieData =>
+                {
+                    this.serieInformation = serieData;
+                    console.log(this.serieInformation);
+                },
+                error => console.log('ERROR: ' + error),
+                () => console.log('Retrieving serie information for', serie.title, 'complete.')
+            );
+    }
 
     selectSerie(serie: Serie)
     {
