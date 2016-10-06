@@ -35,3 +35,9 @@
         <serie-detail [serie]="selectedSerie" (addFavorite)="onAddFavorite($event)"></serie-detail>
     </div>
 </div>
+
+<div class="row" *ngIf="selectedSerie">
+    <div class="col-lg-12">
+        <media-recommendations [media]="selectedSerie"></media-recommendations>
+    </div>
+</div>

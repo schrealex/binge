@@ -45,5 +45,9 @@ ul {
 
 li .personName {
     font-weight: bold;
-    width: 120px;
+    width: 130px;
+}
+
+li .job {
+    width: 130px;
 }

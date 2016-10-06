@@ -42,7 +42,6 @@ export class SerieDetailComponent
                 serieData =>
                 {
                     this.serieInformation = serieData;
-                    console.log('SerieInformation');
                     console.log(this.serieInformation);
                 },
                 error => console.log('ERROR: ' + error),

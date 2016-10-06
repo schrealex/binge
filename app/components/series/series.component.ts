@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Media } from "../../model/media";
 import { Serie } from "../../model/serie";
 import { SerieInformation } from "../../model/serie-information";
+import { Genre } from "../../model/genre";
 
 import { MediaService } from '../../service/media.service';
 import { SerieService } from '../../service/serie.service';
 
 import { Util } from '../../util/movie.util';
-import { Media } from "../../model/media";
 
 @Component({
     moduleId: module.id,
@@ -23,6 +24,8 @@ export class SeriesComponent
     series: Media[] = [];
     searchSeriesTitle: string = '';
     seriesTitle: string = '';
+
+    genres: Genre[] = [];
 
     serieInformation: SerieInformation;
 

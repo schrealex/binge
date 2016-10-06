@@ -106,8 +106,9 @@ export class MovieService
         return this.http.get(movieInformationUrl(movie.id)).flatMap(response => {
             let m = response.json();
             console.log(m);
-            let mi: MovieInformation  = new MovieInformation(m.id, m.imdb_id, m.title, m.original_title, m.release_date, m.genres,
-                m.runtime, m.poster_path, m.backdrop_path, [], [], [], m.overview, m.tagline, m.vote_average, m.vote_count, movie.favorite);
+            let mi: MovieInformation  = new MovieInformation(m.id, m.imdb_id, m.title, m.original_title, m.release_date,
+                m.genres, [], [], [], [], m.runtime, m.poster_path, m.backdrop_path, [], [], m.overview, m.tagline,
+                m.vote_average, m.vote_count, movie.favorite);
 
             console.log(movieCreditsUrl(movie.id));
             return this.http.get(movieCreditsUrl(movie.id)).map(response => response.json()).map((m: any) => {
@@ -118,13 +119,13 @@ export class MovieService
                 m.crew.forEach((c) =>
                 {
                     if(c.department == 'Directing') {
-                        mi.director.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                        mi.directors.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
                     }
                 });
                 m.crew.forEach((c) =>
                 {
                     if(c.department == 'Writing') {
-                        mi.writer.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                        mi.writers.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
                     }
                 });
                 return mi;

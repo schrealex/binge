@@ -7,7 +7,11 @@ import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent }  from './dashboard.component';
+import { CarouselComponent }  from './components/carousel/carousel.component';
+import { GenresComponent }  from './components/genres/genres.component';
+import { PersonsComponent }  from './components/persons/persons.component';
 import { RecommendationsComponent }  from './components/recommendations/recommendations.component';
+import { MediaRecommendationsComponent } from "./components/recommendations/media.recommendations.component";
 import { MoviesComponent } from './movies.component';
 import { MovieAddComponent }  from './movie-add.component';
 import { MovieDetailComponent } from './movie-detail.component';
@@ -32,7 +36,11 @@ import { DateFormatPipe } from "./util/date-format.pipe";
     declarations: [
         AppComponent,
         DashboardComponent,
+        CarouselComponent,
+        GenresComponent,
+        PersonsComponent,
         RecommendationsComponent,
+        MediaRecommendationsComponent,
         MoviesComponent,
         MovieAddComponent,
         MovieDetailComponent,
