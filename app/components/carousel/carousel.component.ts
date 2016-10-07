@@ -8,7 +8,7 @@ import { Image } from "../../model/image";
     styles: [`
         .carousel-inner > .item > img,
         .carousel-inner > .item > a > img {
-            width: 70%;
+            width: 100%;
             margin: auto;
         }
     `]

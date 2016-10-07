@@ -4,7 +4,7 @@ import { Movie } from "../model/movie";
 import { Person } from "../model/person";
 import { Media } from "../model/media";
 
-const imageUrl = (size: string, filePath: string) => `http://image.tmdb.org/t/p/${size}/${filePath}`;
+const imageUrl = (size: string, filePath: string) => `http://image.tmdb.org/t/p/${size}${filePath}`;
 const dummyPosterUrl = `app/images/movie-reel.jpg`;
 const dummyProfileUrl = `app/images/profile-small.jpg`;
 

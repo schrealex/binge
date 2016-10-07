@@ -26,9 +26,11 @@ export class PersonDetailComponent<T extends Person> implements  OnInit
 
     ngOnInit(): void
     {
+        console.log(this.route.params);
         this.route.params.forEach((params: Params) => {
             let id = +params['id'];
-            let name = +params['name'];
+            let name = params['name'];
+
             this.getPersonDetails(id);
             this.title.setTitle(`B I N G E / ${name} details`);
         });
@@ -40,7 +42,8 @@ export class PersonDetailComponent<T extends Person> implements  OnInit
             .subscribe(
                 personDetailData =>
                 {
-                    this.person = personDetailData;
+                    console.log(personDetailData);
+                    this.person = <T>personDetailData;
                     console.log(this.person);
                 },
                 error => console.log('ERROR: ' + error),

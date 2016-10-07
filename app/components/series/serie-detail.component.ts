@@ -58,7 +58,7 @@ export class SerieDetailComponent
     }
 
     getProfileImage(person: Person): string {
-        return new Util().getProfileImage(person);
+        return new Util().getProfileImage(person, 'w45');
     }
 
     onAddFavorite() {

@@ -92,21 +92,24 @@ export class MediaService
                 console.log(m);
                 m.cast.forEach((a) =>
                 {
-                    si.actors.push(new Actor(a.id, a.credit_id, a.name, a.profile_path, a.cast_id, a.character, a.order));
+                    si.actors.push(new Actor(a.id, '', '', '', a.credit_id, a.name, null, 'unknown', 'unknown',
+                        a.profile_path, [], '', a.cast_id, a.character, a.order, false));
                 });
                 m.crew.forEach((c) =>
                 {
+                    let crewMember = new CrewMember(c.id, '', '', '', c.credit_id, c.name, c.profile_path, [],
+                        c.department, c.job);
                     if (c.department == 'Directing')
                     {
-                        si.directors.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                        si.directors.push(crewMember);
                     }
                     else if (c.department == 'Production')
                     {
-                        si.producers.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                        si.producers.push(crewMember);
                     }
                     else if (c.department == 'Writing')
                     {
-                        si.writers.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                        si.writers.push(crewMember);
                     }
                 });
 

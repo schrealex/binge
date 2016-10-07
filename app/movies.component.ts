@@ -20,6 +20,7 @@ export class MoviesComponent
     movies: Movie[] = [];
     searchMovieTitle: string = '';
     movieTitle: string = '';
+    adult: boolean = false;
 
     constructor(private router: Router, private movieService: MovieService)
     {
@@ -29,7 +30,8 @@ export class MoviesComponent
     searchMovies()
     {
         this.movieTitle = this.searchMovieTitle;
-        this.movieService.searchMovies(this.movieTitle)
+        console.log(this.adult);
+        this.movieService.searchMovies(this.movieTitle, this.adult)
             .subscribe(
                 movieData =>
                 {
@@ -50,6 +52,10 @@ export class MoviesComponent
 
     getMoviePoster(movie: Movie): string {
         return new Util().getMoviePoster(movie);
+    }
+
+    toggleAdult() {
+        this.adult = !this.adult;
     }
 
     // setFavorite(favorite: boolean)

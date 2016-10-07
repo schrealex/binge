@@ -21,7 +21,7 @@ const addToFavoritesUrl = (sessionId) => `${baseUrl}/account/{account_id}/favori
 const favoriteMoviesUrl = (sessionId) => `${baseUrl}/account/{account_id}/favorite/movies?api_key=${apiKey}&session_id=${sessionId}`;
 const discoverMoviesUrl = `${baseUrl}/discover/movie?api_key=${apiKey}`;
 
-const searchMoviesUrl = (query) => `${baseUrl}/search/movie?api_key=${apiKey}&query=${query}`;
+const searchMoviesUrl = (query, includeAdult) => `${baseUrl}/search/movie?api_key=${apiKey}&query=${query}&include_adult=${includeAdult}`;
 const movieInformationUrl = (movieId) => `${baseUrl}/movie/${movieId}?api_key=${apiKey}`;
 const movieCreditsUrl = (movieId) => `${baseUrl}/movie/${movieId}/credits?api_key=${apiKey}`;
 
@@ -46,7 +46,8 @@ export class MovieService
         return this.apiAuthenticationService.getSessionId().flatMap(sessionId =>
         {
             console.log(addToFavoritesUrl(sessionId));
-            return this.http.post(addToFavoritesUrl(sessionId), {media_type: "movie", media_id: movie.id, favorite: true}, this.headers).map(result =>
+            return this.http.post(addToFavoritesUrl(sessionId),
+                {media_type: "movie", media_id: movie.id, favorite: true}, this.headers).map(result =>
             {
                 return result.json();
             })
@@ -92,10 +93,10 @@ export class MovieService
         return filteredMovies;
     }
 
-    searchMovies(title: string): Observable<Movie[]>
+    searchMovies(title: string, includeAdult: boolean): Observable<Movie[]>
     {
-        console.log(searchMoviesUrl(title));
-        return this.http.get(searchMoviesUrl(title)).map(result => <Movie[]> result.json().results)
+        console.log(searchMoviesUrl(title, includeAdult));
+        return this.http.get(searchMoviesUrl(title, includeAdult)).map(result => <Movie[]> result.json().results)
             .map(this.mapResponseToMovies()).catch(this.handleError);
     }
 
@@ -114,18 +115,17 @@ export class MovieService
             return this.http.get(movieCreditsUrl(movie.id)).map(response => response.json()).map((m: any) => {
                 m.cast.forEach((a) =>
                 {
-                    mi.actors.push(new Actor(a.id, 0, a.credit_id, a.name, null, 'unknown', 'unknown', a.profile_path, '', a.cast_id, a.character, a.order, false));
+                    mi.actors.push(new Actor(a.id, '', '', '', a.credit_id, a.name, null, 'unknown', 'unknown',
+                        a.profile_path, [], '', a.cast_id, a.character, a.order, false));
                 });
                 m.crew.forEach((c) =>
                 {
+                    let crewMember = new CrewMember(c.id, '', '', '', c.credit_id, c.name, c.profile_path,[],
+                        c.department, c.job);
                     if(c.department == 'Directing') {
-                        mi.directors.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
-                    }
-                });
-                m.crew.forEach((c) =>
-                {
-                    if(c.department == 'Writing') {
-                        mi.writers.push(new CrewMember(c.id, c.credit_id, c.name, c.profile_path, c.department, c.job));
+                        mi.directors.push(crewMember);
+                    } else if(c.department == 'Writing') {
+                        mi.writers.push(crewMember);
                     }
                 });
                 return mi;

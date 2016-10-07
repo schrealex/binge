@@ -2,10 +2,11 @@
     <div class="form-horizontal">
         <div class="col-lg-6">
             <div class="form-group">
-                <div class="col-lg-7">
+                <div class="col-lg-5">
                     <input type="text" class="form-control" [(ngModel)]="searchMovieTitle" (keyup.enter)="searchMovies()" id="movieTitle" placeholder="Movie title..." autofocus />
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-7">
+                    <button class="btn btn-default" [class.btn-warning]="adult" (click)="toggleAdult()">Include adult</button>
                     <button class="btn btn-primary" (click)="searchMovies()">Find movies</button>
                     <button class="btn btn-default" (click)="clearMovies()">Clear</button>
                 </div>

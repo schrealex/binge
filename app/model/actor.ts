@@ -1,4 +1,5 @@
 import { Person } from "./person";
+import { Image } from "./image";
 
 export class Actor extends Person
 {
@@ -12,20 +13,23 @@ export class Actor extends Person
     private _adult: boolean;
 
     constructor(public id: number,
-                public imdbId: number,
+                public imdbId: string,
+                public facebookId: string,
+                public twitterId: string,
                 public creditId: string,
                 public name: string,
                 public birthday: Date,
                 public placeOfBirth: string,
                 public gender: string,
                 public profilePath: string,
+                public profiles: Image[],
                 public biography: string,
                 public castId: string,
                 public character: string,
                 public order: number,
                 public adult: boolean)
     {
-        super(id, creditId, name, profilePath);
+        super(id, imdbId, facebookId, twitterId, creditId, name, profilePath, profiles);
 
         this._birthday = birthday;
         this._placeOfBirth = placeOfBirth;
