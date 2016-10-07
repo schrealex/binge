@@ -14,7 +14,7 @@ import { Util } from "../../util/movie.util";
     moduleId: module.id,
     selector: 'serie-detail',
     templateUrl: 'serie-detail.component.html',
-    styleUrls: ['serie.detail.component.css']
+    styleUrls: ['serie-detail.component.css']
 })
 
 export class SerieDetailComponent

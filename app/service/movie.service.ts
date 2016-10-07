@@ -114,7 +114,7 @@ export class MovieService
             return this.http.get(movieCreditsUrl(movie.id)).map(response => response.json()).map((m: any) => {
                 m.cast.forEach((a) =>
                 {
-                    mi.actors.push(new Actor(a.id, a.credit_id, a.name, a.profile_path, a.cast_id, a.character, a.order));
+                    mi.actors.push(new Actor(a.id, 0, a.credit_id, a.name, null, 'unknown', 'unknown', a.profile_path, '', a.cast_id, a.character, a.order, false));
                 });
                 m.crew.forEach((c) =>
                 {

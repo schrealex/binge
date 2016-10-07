@@ -26,8 +26,8 @@ export class Util
         // return media.posterPath != null ? imageUrl(size, media.posterPath) : dummyPosterUrl;
     }
 
-    getProfileImage(person: Person)
+    getProfileImage<T extends Person>(person: T, size: string)
     {
-        return person.profilePath != null ? imageUrl('w45', person.profilePath) : dummyProfileUrl;
+        return person.profilePath != null ? imageUrl(size, person.profilePath) : dummyProfileUrl;
     }
 }

@@ -1,0 +1,13 @@
+<div class="jumbotron" *ngIf="person">
+
+    <img [src]="getProfileImage(person, 'w185')" class="moviePosterBig"/>
+
+    <h1>{{ person.name }} ({{ person.birthday | dateFormat:'yyyy' }})</h1>
+
+    <div class="subtext">
+        {{ person.placeOfBirth }}
+    </div>
+
+    {{ person.biography }}
+
+</div>

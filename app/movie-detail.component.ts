@@ -10,7 +10,7 @@ import { Person } from "./model/person";
     moduleId: module.id,
     selector: 'movie-detail',
     templateUrl: 'movie-detail.component.html',
-    styleUrls: ['movie.detail.component.css']
+    styleUrls: ['movie-detail.component.css']
 })
 
 export class MovieDetailComponent

@@ -17,12 +17,14 @@ import { MovieAddComponent }  from './movie-add.component';
 import { MovieDetailComponent } from './movie-detail.component';
 import { SeriesComponent } from './components/series/series.component';
 import { SerieDetailComponent } from './components/series/serie-detail.component';
+import { PersonDetailComponent } from './components/persons/details/person-detail.component';
 import { GamesComponent } from './games.component';
 
 import { ApiAuthenticationService } from './service/api-authentication.service';
 import { MediaService } from './service/media.service';
 import { MovieService } from './service/movie.service';
 import { SerieService } from './service/serie.service';
+import { ActorService } from './service/actors.service';
 
 import { DateFormatPipe } from "./util/date-format.pipe";
 
@@ -46,6 +48,7 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         MovieDetailComponent,
         SeriesComponent,
         SerieDetailComponent,
+        PersonDetailComponent,
         GamesComponent,
         DateFormatPipe
     ],
@@ -53,7 +56,8 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         ApiAuthenticationService,
         MediaService,
         MovieService,
-        SerieService
+        SerieService,
+        ActorService
     ],
     bootstrap: [AppComponent]
 })
