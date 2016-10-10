@@ -48,12 +48,12 @@ export class MovieService
             .map(this.mapResponseToMovies()).catch(this.handleError);
     }
 
-    addToFavorites(movie: Movie): Observable<any> {
+    addToFavorites(movie: Movie, addToFavorites: boolean): Observable<any> {
         return this.apiAuthenticationService.getSessionId().flatMap(sessionId =>
         {
             console.log(addToFavoritesUrl(sessionId));
             return this.http.post(addToFavoritesUrl(sessionId),
-                {media_type: "movie", media_id: movie.id, favorite: true}, this.headers).map(result =>
+                {media_type: "movie", media_id: movie.id, favorite: addToFavorites}, this.headers).map(result =>
             {
                 return result.json();
             })

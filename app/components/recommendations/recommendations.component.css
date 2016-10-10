@@ -9,8 +9,8 @@
     display: none;
 }
 
-.overlay i.fa-heart {
-    color: #222222;
+.overlay i.fa {
+    color: #ececec;
     font-size: 60px;
 }
 
