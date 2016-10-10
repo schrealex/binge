@@ -3,7 +3,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <div class="col-lg-5">
-                    <input type="text" class="form-control" [(ngModel)]="searchMovieTitle" (keyup.enter)="searchMovies()" id="movieTitle" placeholder="Movie title..." autofocus />
+                    <input type="text" class="form-control" [(ngModel)]="movieTitle" (keyup.enter)="searchMovies()" (focus)="movieTitle = ''" id="movieTitle" placeholder="Movie title..." autofocus />
                 </div>
                 <div class="col-lg-7">
                     <button class="btn btn-default" [class.btn-warning]="adult" (click)="toggleAdult()">Include adult</button>
@@ -31,6 +31,7 @@
                 <td><span class="movieYear">{{ movie.releaseDate | dateFormat:'yyyy' }}</span></td>
             </tr>
         </table>
+        <span *ngIf="displayNoMoviesFound"> No movies found </span>
     </div>
     <div class="col-lg-6" *ngIf="selectedMovie">
         <movie-detail [movie]="selectedMovie" (addFavorite)="onAddFavorite($event)"></movie-detail>

@@ -3,6 +3,12 @@ import { Headers, Http, Response } from "@angular/http";
 
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+
+import 'rxjs/add/operator/debounce';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import { Observable } from 'rxjs/Rx';
 
 import { Movie } from '../model/movie';
@@ -61,7 +67,10 @@ export class MovieService
         return this.apiAuthenticationService.getSessionId().flatMap(sessionId =>
         {
             return this.http.get(favoriteMoviesUrl(sessionId)).map(result => <Movie[]> result.json().results)
-                .map(this.mapResponseToMovies()).catch(this.handleError);
+                .map(this.mapResponseToMovies())
+                .debounceTime(500)
+                .distinctUntilChanged()
+                .catch(this.handleError);
         });
     }
 
@@ -97,7 +106,10 @@ export class MovieService
     {
         console.log(searchMoviesUrl(title, includeAdult));
         return this.http.get(searchMoviesUrl(title, includeAdult)).map(result => <Movie[]> result.json().results)
-            .map(this.mapResponseToMovies()).catch(this.handleError);
+            .map(this.mapResponseToMovies())
+            .debounceTime(500)
+            .distinctUntilChanged()
+            .catch(this.handleError);
     }
 
     getMovieInformation(movie: Movie): Observable<MovieInformation>
@@ -133,11 +145,6 @@ export class MovieService
             .catch(this.handleError);
         })
         .catch(this.handleError);
-
-        // return this.http.get(movieInformationUrl(movie.id)).map(result => result.json())
-        //     .map((m: any) => new MovieInformation(m.id, m.imdb_id, m.title, m.original_title, m.release_date, m.genres,
-        //         m.runtime, m.poster_path, m.backdrop_path, '', '', '', m.overview, m.tagline, m.vote_average, m.vote_count, movie.favorite))
-        //     .catch(this.handleError);
     }
 
     private mapResponseToMovies(): any {
