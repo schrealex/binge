@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Image } from "../../model/image";
+import { CarouselOptions } from "./carousel-options";
+import { Util } from "../../util/movie.util";
 
 @Component({
     moduleId: module.id,
@@ -16,11 +18,14 @@ import { Image } from "../../model/image";
 
 export class CarouselComponent {
 
-    @Input() carouselId: string;
-    @Input() navigation: boolean;
+    @Input() options: CarouselOptions;
     @Input() images: Image[];
 
     constructor() {
 
+    }
+
+    getImage(size: string, imagePath: string): string {
+        return new Util().getImageUrl(size, imagePath);
     }
 }

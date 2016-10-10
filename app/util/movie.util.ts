@@ -30,4 +30,9 @@ export class Util
     {
         return person.profilePath != null ? imageUrl(size, person.profilePath) : dummyProfileUrl;
     }
+
+    getImageUrl(filePath: string, size: string)
+    {
+        return imageUrl(size, filePath);
+    }
 }

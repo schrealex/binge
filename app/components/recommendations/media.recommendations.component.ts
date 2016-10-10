@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChange} from '@angular/core';
+import { Component, Input, SimpleChange, ViewChild, Renderer, Directive, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ export class MediaRecommendationsComponent<T extends Media>
 
     recommendations: Media[] = [];
 
-    constructor(private router: Router, private mediaService: MediaService)
+    constructor(private router: Router, private mediaService: MediaService, private renderer: Renderer)
     {
 
     }
@@ -41,11 +41,24 @@ export class MediaRecommendationsComponent<T extends Media>
                 console.log(this.recommendations);
             },
             error => console.log('ERROR: ' + error),
-            () => console.log('Retrieving', type ,'recommendations for', media.title, 'complete.')
+            () => console.log('Retrieving', type, 'recommendations for', media.title, 'complete.')
         );
     }
 
-    getMediaPoster(media: Media): string {
+    getMediaPoster(media: Media): string
+    {
         return new Util().getMediaPoster(media, 'w250_and_h141_bestv2');
+    }
+
+    onScrollScrollLeft(event: any)
+    {
+        let target = event.currentTarget;
+        let style = target.firstElementChild.currentStyle || window.getComputedStyle(target.firstElementChild);
+        let imageWidth = target.firstElementChild.offsetWidth + parseInt(style.marginRight);
+        let multiplier = Math.floor(target.offsetWidth / imageWidth);
+        let scrollLeftValue = Math.abs((multiplier * imageWidth) / Math.abs(event.wheelDeltaY));
+
+        target.scrollLeft -= event.wheelDeltaY * scrollLeftValue;
+        event.preventDefault();
     }
 }

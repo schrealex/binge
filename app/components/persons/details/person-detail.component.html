@@ -1,6 +1,8 @@
 <div class="jumbotron" *ngIf="person">
 
-    <img [src]="getProfileImage(person, 'w185')" class="moviePosterBig"/>
+    <div class="backdrop">
+        <carousel [options]="carouselOptions" [images]="person.profiles"></carousel>
+    </div>
 
     <h1>{{ person.name }} ({{ person.birthday | dateFormat:'yyyy' }})</h1>
 
@@ -9,8 +11,5 @@
     </div>
 
     {{ person.biography }}
-
-
-    <carousel [carouselId]="'profilePicturesCarousel'" [navigation]="true" [images]="person.profiles"></carousel>
 
 </div>

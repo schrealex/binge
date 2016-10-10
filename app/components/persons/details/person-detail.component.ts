@@ -7,6 +7,7 @@ import { Person } from "../../../model/person";
 import { Util } from "../../../util/movie.util";
 
 import { ActorService } from "../../../service/actors.service";
+import { CarouselOptions } from "../../carousel/carousel-options";
 
 @Component({
     moduleId: module.id,
@@ -18,6 +19,8 @@ import { ActorService } from "../../../service/actors.service";
 export class PersonDetailComponent<T extends Person> implements  OnInit
 {
     person: T;
+
+    private carouselOptions: CarouselOptions = new CarouselOptions('profilePicturesCarousel', true, 0, 200, 'w185', '');
 
     constructor(private actorService: ActorService, private route: ActivatedRoute, private title: Title)
     {
@@ -32,7 +35,6 @@ export class PersonDetailComponent<T extends Person> implements  OnInit
             let name = params['name'];
 
             this.getPersonDetails(id);
-            this.title.setTitle(`B I N G E / ${name} details`);
         });
     }
 
@@ -42,13 +44,19 @@ export class PersonDetailComponent<T extends Person> implements  OnInit
             .subscribe(
                 personDetailData =>
                 {
-                    console.log(personDetailData);
                     this.person = <T>personDetailData;
-                    console.log(this.person);
                 },
                 error => console.log('ERROR: ' + error),
-                () => console.log('Retrieving person details for', personId, 'complete.')
+                () =>
+                {
+                    console.log('Retrieving person details for', personId, 'complete.');
+                    this.setTitle();
+                }
             );
+    }
+
+    setTitle() {
+        this.title.setTitle(`B I N G E / ${this.person.name} details`);
     }
 
     getProfileImage(person: T, size: string): string {
