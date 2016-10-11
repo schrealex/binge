@@ -18,6 +18,8 @@ import { Serie } from "../model/serie";
 const apiKey = 'f16bfeb0210b43f1f12d8d4ccc114ee9';
 const baseUrl = 'https://api.themoviedb.org/3';
 
+const searchPersonUrl = (query) => `${baseUrl}/search/person?api_key=${apiKey}&query=${query}`;
+
 const personDetailsUrl = (personId) => `${baseUrl}/person/${personId}?api_key=${apiKey}`;
 const personExternalIdsUrl = (personId) => `${baseUrl}/person/${personId}/external_ids?api_key=${apiKey}`;
 const personImagesUrl = (personId) => `${baseUrl}/person/${personId}/images?api_key=${apiKey}`;
@@ -56,6 +58,16 @@ export class ActorService
                     });
                 });
             });
+        })
+        .catch(this.handleError);
+    }
+
+    searchActor(actorName: string): Observable<any>
+    {
+        console.log(searchPersonUrl(actorName));
+        return this.http.get(searchPersonUrl(actorName)).map(response => {
+            console.log(response.json().results);
+            return response.json().results;
         })
         .catch(this.handleError);
     }
@@ -106,8 +118,6 @@ export class ActorService
                 array.push(new CrewCredits(credit.id, credit.credit_id, movie, serie, credit.department, credit.job));
             }
         });
-
-        console.log(array);
     }
 
     private handleError(error: Response)

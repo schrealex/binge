@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -17,9 +17,10 @@ import { Media } from "../../../model/media";
     // styleUrls: ['person-detail.component.css']
 })
 
-export class PersonDetailComponent<T extends Person, M extends Media> implements  OnInit
+export class PersonDetailComponent<T extends Person, M extends Media> implements OnInit
 {
     person: T;
+    backdrops: string[];
 
     private carouselOptions: CarouselOptions = new CarouselOptions('profilePicturesCarousel', true, 0, 200, 'w185', '');
 
@@ -31,11 +32,13 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
     ngOnInit(): void
     {
         console.log(this.route.params);
-        this.route.params.forEach((params: Params) => {
+        this.route.params.forEach((params: Params) =>
+        {
             let id = +params['id'];
             let name = params['name'];
 
             this.getPersonDetails(id);
+            this.getBackdrops(name);
         });
     }
 
@@ -56,15 +59,47 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
             );
     }
 
-    setTitle() {
+    getBackdrops(actorName: string)
+    {
+        this.actorService.searchActor(actorName)
+            .subscribe(
+                personData =>
+                {
+                    console.log('personData');
+                    console.log(personData[0].known_for);
+
+                    let backdrops: string[] = [];
+                    personData[0].known_for.forEach(k => {
+                        backdrops.push(k.backdrop_path);
+                    });
+
+                    this.backdrops = backdrops;
+                },
+                error => console.log('ERROR: ' + error),
+                () =>
+                {
+                    console.log('Searching person with name', actorName, 'complete.');
+                }
+            );
+    }
+
+    setTitle()
+    {
         this.title.setTitle(`B I N G E / ${this.person.name} details`);
     }
 
-    getProfileImage(person: T, size: string): string {
+    getProfileImage(person: T, size: string): string
+    {
         return new Util().getProfileImage(person, size);
     }
 
-    getMoviePoster(media: M, size: string): string {
+    getMoviePoster(media: M, size: string): string
+    {
         return new Util().getMediaPoster(media, size);
+    }
+
+    getBackdropImage(media: M, size: string): string
+    {
+        return new Util().getMediaBackdrop(media, size);
     }
 }
