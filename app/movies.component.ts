@@ -58,18 +58,10 @@ export class MoviesComponent
         this.adult = !this.adult;
     }
 
-    // setFavorite(favorite: boolean)
-    // {
-    //     this.selectedMovie.favorite = favorite;
-    //     this.movies[this.movies.indexOf(this.selectedMovie)].favorite = favorite;
-    // }
-
     onAddFavorite(movie: Movie)
     {
-        this.movieService.addToFavorites(movie).subscribe();
+        this.movieService.addToFavorites(movie, true).subscribe();
     }
-
-
     clearMovies()
     {
         this.movies = [];
