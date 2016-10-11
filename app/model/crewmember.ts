@@ -1,5 +1,7 @@
 import { Person } from "./person";
 import { Image } from "./image";
+import { CrewCredits } from "./crew-credits";
+import { CastCredits } from "./cast-credits";
 
 export class CrewMember extends Person
 {
@@ -14,10 +16,12 @@ export class CrewMember extends Person
                 public name: string,
                 public profilePath: string,
                 public profiles: Image[],
+                public castCredits: CastCredits[],
+                public crewCredits: CrewCredits[],
                 public department: string,
                 public job: string)
     {
-        super(id, imdbId, facebookId, twitterId, creditId, name, profilePath, profiles);
+        super(id, imdbId, facebookId, twitterId, creditId, name, profilePath, profiles, castCredits, crewCredits);
 
         this._department = department;
         this._job = job;

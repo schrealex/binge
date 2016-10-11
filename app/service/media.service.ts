@@ -93,11 +93,11 @@ export class MediaService
                 m.cast.forEach((a) =>
                 {
                     si.actors.push(new Actor(a.id, '', '', '', a.credit_id, a.name, null, 'unknown', 'unknown',
-                        a.profile_path, [], '', a.cast_id, a.character, a.order, false));
+                        a.profile_path, [], [], [], '', a.cast_id, a.character, a.order, false));
                 });
                 m.crew.forEach((c) =>
                 {
-                    let crewMember = new CrewMember(c.id, '', '', '', c.credit_id, c.name, c.profile_path, [],
+                    let crewMember = new CrewMember(c.id, '', '', '', c.credit_id, c.name, c.profile_path, [], [], [],
                         c.department, c.job);
                     if (c.department == 'Directing')
                     {
@@ -140,7 +140,7 @@ export class MediaService
             let recommendations: Media[] = [];
             response.json().results.forEach(item => {
                     recommendations.push(new Serie(item.id, item.name, item.orginal_name, item.first_air_date,
-                    item.poster_path, item.backdrop_path, item.overview, item.genre_ids, item.vote_average,
+                    item.poster_path, item.backdrop_path, item.overview, 0, item.genre_ids, item.vote_average,
                     item.vote_average, false));
             });
             return recommendations;
@@ -182,7 +182,7 @@ export class MediaService
                 series.forEach(serie =>
                 {
                     response.push(new Serie(serie.id, serie.name, serie.orginal_name, serie.first_air_date,
-                        serie.poster_path, serie.backdrop_path, serie.overview, serie.genre_ids, serie.vote_average,
+                        serie.poster_path, serie.backdrop_path, serie.overview, 0, serie.genre_ids, serie.vote_average,
                         serie.vote_average, false));
                 });
             }

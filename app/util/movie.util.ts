@@ -22,8 +22,12 @@ export class Util
 
     getMediaPoster<T extends Media>(media: T, size: string): string
     {
+        return media.posterPath != null ? imageUrl(size, media.posterPath) : dummyPosterUrl;
+    }
+
+    getMediaBackdrop<T extends Media>(media: T, size: string): string
+    {
         return media.backdropPath != null ? imageUrl(size, media.backdropPath) : dummyPosterUrl;
-        // return media.posterPath != null ? imageUrl(size, media.posterPath) : dummyPosterUrl;
     }
 
     getProfileImage<T extends Person>(person: T, size: string)

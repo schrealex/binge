@@ -50,7 +50,7 @@ export class SerieService
                 series.forEach((serie) =>
                 {
                     response.push(new Serie(serie.id, serie.name, serie.original_name, serie.first_air_date,
-                        serie.poster_path, serie.backdrop_path, serie.overview, serie.genre_ids, serie.vote_average,
+                        serie.poster_path, serie.backdrop_path, serie.overview, 0, serie.genre_ids, serie.vote_average,
                         serie.vote_average, false));
                 });
             }

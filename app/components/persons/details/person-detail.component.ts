@@ -8,6 +8,7 @@ import { Util } from "../../../util/movie.util";
 
 import { ActorService } from "../../../service/actors.service";
 import { CarouselOptions } from "../../carousel/carousel-options";
+import { Media } from "../../../model/media";
 
 @Component({
     moduleId: module.id,
@@ -16,7 +17,7 @@ import { CarouselOptions } from "../../carousel/carousel-options";
     // styleUrls: ['person-detail.component.css']
 })
 
-export class PersonDetailComponent<T extends Person> implements  OnInit
+export class PersonDetailComponent<T extends Person, M extends Media> implements  OnInit
 {
     person: T;
 
@@ -61,5 +62,9 @@ export class PersonDetailComponent<T extends Person> implements  OnInit
 
     getProfileImage(person: T, size: string): string {
         return new Util().getProfileImage(person, size);
+    }
+
+    getMoviePoster(media: M, size: string): string {
+        return new Util().getMediaPoster(media, size);
     }
 }

@@ -1,4 +1,6 @@
 import { Image } from "./image";
+import { CrewCredits } from "./crew-credits";
+import { CastCredits } from "./cast-credits";
 
 export class Person
 {
@@ -10,6 +12,8 @@ export class Person
     private _name: string;
     private _profilePath: string;
     private _profiles: Image[];
+    private _castCredits: CastCredits[];
+    private _crewCredits: CrewCredits[];
 
     constructor(public id: number,
                 public imdbId: string,
@@ -18,7 +22,9 @@ export class Person
                 public creditId: string,
                 public name: string,
                 public profilePath: string,
-                public profiles: Image[])
+                public profiles: Image[],
+                public castCredits: CastCredits[],
+                public crewCredits: CrewCredits[])
     {
         this._id = id;
         this._imdbId = imdbId;
@@ -28,5 +34,7 @@ export class Person
         this._name = name;
         this._profilePath = profilePath;
         this._profiles = profiles;
+        this._castCredits = castCredits;
+        this._crewCredits = crewCredits;
     }
 }

@@ -1,5 +1,7 @@
 import { Person } from "./person";
 import { Image } from "./image";
+import { CrewCredits } from "./crew-credits";
+import { CastCredits } from "./cast-credits";
 
 export class Actor extends Person
 {
@@ -23,13 +25,15 @@ export class Actor extends Person
                 public gender: string,
                 public profilePath: string,
                 public profiles: Image[],
+                public castCredits: CastCredits[],
+                public crewCredits: CrewCredits[],
                 public biography: string,
                 public castId: string,
                 public character: string,
                 public order: number,
                 public adult: boolean)
     {
-        super(id, imdbId, facebookId, twitterId, creditId, name, profilePath, profiles);
+        super(id, imdbId, facebookId, twitterId, creditId, name, profilePath, profiles, castCredits, crewCredits);
 
         this._birthday = birthday;
         this._placeOfBirth = placeOfBirth;

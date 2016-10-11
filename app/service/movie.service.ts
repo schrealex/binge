@@ -128,11 +128,11 @@ export class MovieService
                 m.cast.forEach((a) =>
                 {
                     mi.actors.push(new Actor(a.id, '', '', '', a.credit_id, a.name, null, 'unknown', 'unknown',
-                        a.profile_path, [], '', a.cast_id, a.character, a.order, false));
+                        a.profile_path, [], [], [], '', a.cast_id, a.character, a.order, false));
                 });
                 m.crew.forEach((c) =>
                 {
-                    let crewMember = new CrewMember(c.id, '', '', '', c.credit_id, c.name, c.profile_path,[],
+                    let crewMember = new CrewMember(c.id, '', '', '', c.credit_id, c.name, c.profile_path,[], [], [],
                         c.department, c.job);
                     if(c.department == 'Directing') {
                         mi.directors.push(crewMember);
@@ -155,8 +155,8 @@ export class MovieService
             {
                 movies.forEach((movie) =>
                 {
-                    response.push(new Movie(movie.id, movie.title, movie.orginal_title, movie.release_date, movie.poster_path,
-                        movie.backdrop_path, movie.overview, movie.genre_ids, movie.vote_average,
+                    response.push(new Movie(movie.id, movie.title, movie.orginal_title, movie.release_date,
+                        movie.poster_path, movie.backdrop_path, movie.overview, movie.genre_ids, movie.vote_average,
                         movie.vote_average, false));
                 });
             }
