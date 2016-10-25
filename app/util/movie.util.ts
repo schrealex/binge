@@ -32,6 +32,7 @@ export class Util
 
     getProfileImage<T extends Person>(person: T, size: string)
     {
+        console.log(person.profilePath);
         return person.profilePath != null ? imageUrl(size, person.profilePath) : dummyProfileUrl;
     }
 

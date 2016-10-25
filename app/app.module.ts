@@ -18,6 +18,7 @@ import { MovieDetailComponent } from './movie-detail.component';
 import { SeriesComponent } from './components/series/series.component';
 import { SerieDetailComponent } from './components/series/serie-detail.component';
 import { PersonDetailComponent } from './components/persons/details/person-detail.component';
+import { SearchPersonsComponent } from './components/persons/search/search-persons.component';
 import { GamesComponent } from './games.component';
 
 import { ApiAuthenticationService } from './service/api-authentication.service';
@@ -49,6 +50,7 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         SeriesComponent,
         SerieDetailComponent,
         PersonDetailComponent,
+        SearchPersonsComponent,
         GamesComponent,
         DateFormatPipe
     ],

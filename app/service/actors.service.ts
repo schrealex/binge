@@ -18,7 +18,7 @@ import { Serie } from "../model/serie";
 const apiKey = 'f16bfeb0210b43f1f12d8d4ccc114ee9';
 const baseUrl = 'https://api.themoviedb.org/3';
 
-const searchPersonUrl = (query) => `${baseUrl}/search/person?api_key=${apiKey}&query=${query}`;
+const searchPersonUrl = (query, adult) => `${baseUrl}/search/person?api_key=${apiKey}&query=${query}&include_adult=${adult}`;
 
 const personDetailsUrl = (personId) => `${baseUrl}/person/${personId}?api_key=${apiKey}`;
 const personExternalIdsUrl = (personId) => `${baseUrl}/person/${personId}/external_ids?api_key=${apiKey}`;
@@ -62,10 +62,10 @@ export class ActorService
         .catch(this.handleError);
     }
 
-    searchActor(actorName: string): Observable<any>
+    searchActor(actorName: string, adult: boolean): Observable<any>
     {
-        console.log(searchPersonUrl(actorName));
-        return this.http.get(searchPersonUrl(actorName)).map(response => {
+        console.log(searchPersonUrl(actorName, adult));
+        return this.http.get(searchPersonUrl(actorName, adult)).map(response => {
             console.log(response.json().results);
             return response.json().results;
         })

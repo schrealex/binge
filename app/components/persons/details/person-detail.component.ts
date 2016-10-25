@@ -61,7 +61,7 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
 
     getBackdrops(actorName: string)
     {
-        this.actorService.searchActor(actorName)
+        this.actorService.searchActor(actorName, true)
             .subscribe(
                 personData =>
                 {
