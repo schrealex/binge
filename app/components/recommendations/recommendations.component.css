@@ -2,14 +2,15 @@
     position: relative;
     display: inline-block;
     margin: 10px;
+    height: 390px;
 }
 
 .overlay {
     display: none;
 }
 
-.overlay i.fa-heart {
-    color: #222222;
+.overlay i.fa {
+    color: #ececec;
     font-size: 60px;
 }
 

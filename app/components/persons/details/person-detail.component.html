@@ -1,0 +1,73 @@
+<div class="jumbotron" *ngIf="person">
+
+    <div class="wrapper" style="height: 400px; width: 100%;">
+        <div [style.background-image]="'url(http://image.tmdb.org/t/p/w780' + backdrops[0] + ')'"
+             style="height: 400px; width: 87%; position: absolute; background-position: center; background-repeat: no-repeat; background-size: cover;
+             -webkit-background-size: cover; -moz-background-size: cover; background-size: cover; -o-background-size: cover;">
+            <div class="bg-filter" style="position: absolute; background-color: rgba(0, 0, 0, .65); width: 100%; height: 100%;"></div>
+            <carousel style="position: absolute; z-index: 2; top: 12%; left: 5%;" [options]="carouselOptions" [images]="person.profiles"></carousel>
+
+            <!--<div *ngFor="let backdrop of backdrops" style="position: absolute; top: 48px; z-index: 1;">-->
+                <!--<img *ngIf="backdrop" [src]="'http://image.tmdb.org/t/p/w780' + backdrop" style="background: rgba(0, 0, 0, .65);">-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <h1>{{ person.name }} ({{ person.birthday | dateFormat:'yyyy' }})</h1>
+
+    <div class="subtext">
+        {{ person.placeOfBirth }}
+    </div>
+
+    {{ person.biography }}
+
+    <h3>Known for</h3>
+    <div class="row">
+        <div *ngFor="let credits of person.castCredits | slice:0:8">
+            <div *ngIf="credits.movie != null" class="col-md-3">
+                <div class="thumbnail" style="height: 410px;">
+                    <img *ngIf="credits.movie" [src]="getMoviePoster(credits.movie, 'w342')" style="height: 340px;">
+                    <p style="text-align: center; font-weight: bold;">{{ credits.movie.title }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a (click)="open = !open" data-toggle="collapse" href="#moreMovies"><h3><i class="fa" [ngClass]="open ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> More movies...</h3></a>
+    <div id="moreMovies" class="panel-collapse collapse row">
+        <div *ngFor="let credits of person.castCredits | slice:8">
+            <div *ngIf="credits.movie != null" class="col-md-3">
+                <div class="thumbnail" style="height: 410px;">
+                    <img *ngIf="credits.movie" [src]="getMoviePoster(credits.movie, 'w342')" style="height: 340px;">
+                    <p style="text-align: center; font-weight: bold;">{{ credits.movie.title }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a (click)="seriesOpen = !seriesOpen" data-toggle="collapse" href="#series"><h3><i class="fa" [ngClass]="seriesOpen ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> TV Series</h3></a>
+    <div id="series" class="panel-collapse collapse row">
+        <div *ngFor="let credits of person.castCredits">
+            <div *ngIf="credits.serie != null" class="col-md-3">
+                <div class="thumbnail" style="height: 410px;">
+                    <img *ngIf="credits.serie" [src]="getMoviePoster(credits.serie, 'w342')" style="height: 340px;">
+                    <p style="text-align: center; font-weight: bold;">{{ credits.serie.title }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a (click)="productionOpen = !productionOpen" data-toggle="collapse" href="#production"><h3><i class="fa" [ngClass]="productionOpen ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> Production</h3></a>
+    <div id="production" class="panel-collapse collapse row">
+        <div *ngFor="let credits of person.crewCredits">
+            <div class="col-md-3">
+                <div class="thumbnail" style="height: 410px;">
+                    <img *ngIf="credits.movie" [src]="getMoviePoster(credits.movie, 'w342')" style="height: 340px;">
+                    <img *ngIf="credits.serie" [src]="getMoviePoster(credits.serie, 'w342')" style="height: 340px;">
+                    <p style="text-align: center; font-weight: bold;">{{ credits.movie != null ? credits.movie.title : credits.serie.title }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

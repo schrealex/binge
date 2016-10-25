@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,12 +13,16 @@ import { Util } from "./util/movie.util";
     moduleId: module.id,
     selector: 'dashboard',
     templateUrl: 'dashboard.component.html',
-    // styleUrls: ['dashboard.component.css']
+    styleUrls: ['dashboard.component.css']
 })
 
 export class DashboardComponent implements OnInit
 {
     movies: Observable<Movie[]>;
+
+    removedMovie: string = '';
+    mouseOver: boolean = false;
+    removedFromFavorites: boolean = false;
 
     constructor(private router: Router, private movieService: MovieService, title: Title)
     {
@@ -27,11 +31,38 @@ export class DashboardComponent implements OnInit
 
     ngOnInit(): void
     {
+        this.getFavoriteMovies();
+    }
+
+    ngOnChanges(changes: SimpleChange)
+    {
+        console.log(changes);
+        this.getFavoriteMovies();
+    }
+
+    getFavoriteMovies() {
         this.movies = this.movieService.favoriteMovies();
+        this.movieService.favoriteMovies().subscribe(result => console.log(result.length));
     }
 
     getMoviePoster(movie: Movie): string {
         return new Util().getMoviePoster(movie);
+    }
+
+    displayMouseOver()
+    {
+        this.mouseOver = !this.mouseOver;
+    }
+
+    removeFromFavorites(movie: Movie) {
+        this.removedMovie = movie.title;
+        this.movieService.addToFavorites(movie, false).subscribe(response => {
+            if(response.status_code == 13) {
+                this.removedFromFavorites = true;
+                console.log(`${this.removedMovie} removed from favorites`);
+                this.getFavoriteMovies();
+            }
+        });
     }
 
     gotoDetail(movie: Movie): void

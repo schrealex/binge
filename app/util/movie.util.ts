@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 
 import { Movie } from "../model/movie";
 import { Person } from "../model/person";
+import { Media } from "../model/media";
 
-const imageUrl = (size: string, filePath: string) => `http://image.tmdb.org/t/p/${size}/${filePath}`;
+const imageUrl = (size: string, filePath: string) => `http://image.tmdb.org/t/p/${size}${filePath}`;
 const dummyPosterUrl = `app/images/movie-reel.jpg`;
 const dummyProfileUrl = `app/images/profile-small.jpg`;
-
 
 @Component({
     moduleId: module.id,
@@ -15,13 +15,28 @@ const dummyProfileUrl = `app/images/profile-small.jpg`;
 
 export class Util
 {
-    getMoviePoster(movie: Movie)
+    getMoviePoster<T extends Media>(media: T): string
     {
-        return movie.posterPath != null ? imageUrl('w342', movie.posterPath) : dummyPosterUrl;
+        return media.posterPath != null ? imageUrl('w342', media.posterPath) : dummyPosterUrl;
     }
 
-    getProfileImage(person: Person)
+    getMediaPoster<T extends Media>(media: T, size: string): string
     {
-        return person.profilePath != null ? imageUrl('w45', person.profilePath) : dummyProfileUrl;
+        return media.posterPath != null ? imageUrl(size, media.posterPath) : dummyPosterUrl;
+    }
+
+    getMediaBackdrop<T extends Media>(media: T, size: string): string
+    {
+        return media.backdropPath != null ? imageUrl(size, media.backdropPath) : dummyPosterUrl;
+    }
+
+    getProfileImage<T extends Person>(person: T, size: string)
+    {
+        return person.profilePath != null ? imageUrl(size, person.profilePath) : dummyProfileUrl;
+    }
+
+    getImageUrl(filePath: string, size: string)
+    {
+        return imageUrl(size, filePath);
     }
 }

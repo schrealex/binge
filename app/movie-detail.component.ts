@@ -10,15 +10,13 @@ import { Person } from "./model/person";
     moduleId: module.id,
     selector: 'movie-detail',
     templateUrl: 'movie-detail.component.html',
-    styleUrls: ['movie.detail.component.css']
+    styleUrls: ['movie-detail.component.css']
 })
 
 export class MovieDetailComponent
 {
     @Input() movie: Movie;
     @Output() addFavorite = new EventEmitter();
-
-    // @Output() favorite: EventEmitter<any> = new EventEmitter();
 
     movieInformation: MovieInformation;
 
@@ -52,7 +50,7 @@ export class MovieDetailComponent
     }
 
     getProfileImage(person: Person): string {
-        return new Util().getProfileImage(person);
+        return new Util().getProfileImage(person, 'w45');
     }
 
     onAddFavorite() {

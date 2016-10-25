@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import { Movie } from './model/movie';
 
 import { MovieService } from './service/movie.service';
@@ -18,8 +21,9 @@ export class MoviesComponent
 {
     selectedMovie: Movie = null;
     movies: Movie[] = [];
-    searchMovieTitle: string = '';
     movieTitle: string = '';
+    adult: boolean = false;
+    displayNoMoviesFound: boolean = false;
 
     constructor(private router: Router, private movieService: MovieService)
     {
@@ -28,42 +32,36 @@ export class MoviesComponent
 
     searchMovies()
     {
-        this.movieTitle = this.searchMovieTitle;
-        this.movieService.searchMovies(this.movieTitle)
+        this.clearMovies();
+        this.movieService.searchMovies(this.movieTitle, this.adult)
             .subscribe(
                 movieData =>
                 {
                     this.movies = movieData;
-                    console.log(this.movies);
+                    this.displayNoMoviesFound = this.movies.length == 0;
                 },
                 error => console.log('ERROR: ' + error),
                 () => console.log('Searching movies with titles containing', this.movieTitle, 'complete.')
             );
-        this.searchMovieTitle = '';
     }
 
     selectMovie(movie: Movie)
     {
         this.selectedMovie = movie;
-        console.log(this.selectedMovie);
     }
 
     getMoviePoster(movie: Movie): string {
         return new Util().getMoviePoster(movie);
     }
 
-    // setFavorite(favorite: boolean)
-    // {
-    //     this.selectedMovie.favorite = favorite;
-    //     this.movies[this.movies.indexOf(this.selectedMovie)].favorite = favorite;
-    // }
+    toggleAdult() {
+        this.adult = !this.adult;
+    }
 
-    // onAddFavorite(movie: Movie)
-    // {
-    //     this.movieService.addFavorite(movie).subscribe();
-    // }
-
-
+    onAddFavorite(movie: Movie)
+    {
+        this.movieService.addToFavorites(movie, true).subscribe();
+    }
     clearMovies()
     {
         this.movies = [];

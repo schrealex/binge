@@ -30,26 +30,20 @@
 
 ul {
     list-style-type: none;
-    columns: 2;
-    -webkit-columns: 2;
-    -moz-columns: 2;
-    list-style-position: inside;
     padding-left: 0;
 }
 
 .persons li {
-    height: 78px;
-}
-
-.persons span {
-    display: block;
-}
-
-.persons span.personPhoto {
-    float: left;
     margin: 5px;
+    padding: 0;
 }
 
-.personName {
+.persons img {
+    height: 68px;
+    width: 45px;
+}
+
+li .personName {
     font-weight: bold;
+    width: 120px;
 }
