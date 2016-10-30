@@ -16,15 +16,15 @@ export class ConfigurationService
     }
 
     getConfiguration(): Observable<Configuration> {
+        let configuration : Configuration;
         return this.http.get('app/configuration.json').map(response => {
-            debugger;
             let result = response.json();
             result.forEach(c => {
                 if(c.enviroment == 'development') {
-                    return new Configuration(c.enviroment, c.apiKey, c.username, c.password);
+                    configuration = new Configuration(c.enviroment, c.apiKey, c.username, c.password);
                 }
             });
-            return;
+            return configuration;
         }).catch(this.handleError);
     }
 
