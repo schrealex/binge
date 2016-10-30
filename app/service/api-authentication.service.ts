@@ -5,18 +5,11 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Rx';
-import { Configuration } from "../model/configuration";
 import { ConfigurationService } from "./configuration.service";
 
-// const apiKey = 'f16bfeb0210b43f1f12d8d4ccc114ee9';
 const baseUrl = 'https://api.themoviedb.org/3';
-const movieDbUrl = 'https://www.themoviedb.org';
-
-// const username = 'CE_REAL';
-// const password = 'SiNGInfeGOnEiDEcTOPU';
 
 const requestTokenUrl = (apiKey) => `${baseUrl}/authentication/token/new?api_key=${apiKey}`;
-const userPermissionUrl = (apiKey, requestToken) => `${movieDbUrl}/authenticate/${requestToken}`;
 const validateWithLoginUrl = (apiKey, username, password, requestToken) => `${baseUrl}/authentication/token/validate_with_login?api_key=${apiKey}&username=${username}&password=${password}&request_token=${requestToken}`;
 const sessionIdUrl = (apiKey, requestToken) => `${baseUrl}/authentication/session/new?api_key=${apiKey}&request_token=${requestToken}`;
 
