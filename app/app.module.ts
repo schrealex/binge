@@ -20,6 +20,7 @@ import { SerieDetailComponent } from './components/series/serie-detail.component
 import { PersonDetailComponent } from './components/persons/details/person-detail.component';
 import { GamesComponent } from './games.component';
 
+import { ConfigurationService } from './service/configuration.service';
 import { ApiAuthenticationService } from './service/api-authentication.service';
 import { MediaService } from './service/media.service';
 import { MovieService } from './service/movie.service';
@@ -53,6 +54,7 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         DateFormatPipe
     ],
     providers: [
+        ConfigurationService,
         ApiAuthenticationService,
         MediaService,
         MovieService,
