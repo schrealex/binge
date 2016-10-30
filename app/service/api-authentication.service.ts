@@ -5,6 +5,8 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Rx';
+import { Configuration } from "../model/configuration";
+import { ConfigurationService } from "./configuration.service";
 
 const apiKey = 'f16bfeb0210b43f1f12d8d4ccc114ee9';
 const baseUrl = 'https://api.themoviedb.org/3';
@@ -21,12 +23,16 @@ const sessionIdUrl = (requestToken) => `${baseUrl}/authentication/session/new?ap
 @Injectable()
 export class ApiAuthenticationService
 {
-    constructor(private http: Http)
+    constructor(private http: Http, private configurationService: ConfigurationService)
     {
 
     }
 
     getSessionId(): Observable<any> {
+        this.configurationService.getConfiguration().subscribe(configurationData => {
+            console.log(configurationData.username);
+        });
+
         return this.authenticate();
     }
 

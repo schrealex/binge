@@ -21,6 +21,7 @@ import { PersonDetailComponent } from './components/persons/details/person-detai
 import { SearchPersonsComponent } from './components/persons/search/search-persons.component';
 import { GamesComponent } from './games.component';
 
+import { ConfigurationService } from './service/configuration.service';
 import { ApiAuthenticationService } from './service/api-authentication.service';
 import { MediaService } from './service/media.service';
 import { MovieService } from './service/movie.service';
@@ -55,6 +56,7 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         DateFormatPipe
     ],
     providers: [
+        ConfigurationService,
         ApiAuthenticationService,
         MediaService,
         MovieService,
