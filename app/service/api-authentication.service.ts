@@ -26,25 +26,32 @@ export class ApiAuthenticationService
     }
 
     getSessionId(): Observable<any> {
-        this.configurationService.getConfiguration().subscribe(configurationData => {
+        return this.configurationService.getConfiguration().flatMap(configurationData => {
             this.apiKey = configurationData.apiKey;
             this.username = configurationData.username;
             this.password = configurationData.password;
+
+            console.log('Configuration loaded');
+            return this.authenticate();
         });
-        return this.authenticate();
     }
 
     authenticate(): Observable<any>
     {
         return this.http.get(requestTokenUrl(this.apiKey)).flatMap(response => {
-            console.log(validateWithLoginUrl(this.apiKey, this.username, this.password, response.json().request_token));
-            return this.http.get(validateWithLoginUrl(this.apiKey, this.username, this.password, response.json().request_token)).flatMap(response => {
-                return this.http.get(sessionIdUrl(this.apiKey, response.json().request_token)).map(response => {
-                    return response.json().session_id;
+            if(response.json().success) {
+                return this.http.get(validateWithLoginUrl(this.apiKey, this.username, this.password, response.json().request_token)).flatMap(response => {
+                    if(response.json().success) {
+                        return this.http.get(sessionIdUrl(this.apiKey, response.json().request_token)).map(response => {
+                            if(response.json().success) {
+                                return response.json().session_id;
+                            }
+                        })
+                        .catch(this.handleError);
+                    }               
                 })
                 .catch(this.handleError);
-            })
-            .catch(this.handleError);
+            }
         })
         .catch(this.handleError);
     }

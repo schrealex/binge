@@ -55,7 +55,7 @@ export class RecommendationsComponent implements OnInit
 
     addToFavorites(movie: Movie) {
         this.movieService.addToFavorites(movie, true).subscribe(response => {
-            if(response.status_code == 12) {
+            if(response.status_code == 1) {
                 this.addedToFavorites = true;
                 this.addedMovie = movie.title;
                 console.log(`${movie.title} added to favorites`);

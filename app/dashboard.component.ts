@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit
 
     getFavoriteMovies() {
         this.movies = this.movieService.favoriteMovies();
-        this.movieService.favoriteMovies().subscribe(result => console.log(result.length));
     }
 
     getMoviePoster(movie: Movie): string {
