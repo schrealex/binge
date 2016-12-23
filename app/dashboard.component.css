@@ -12,6 +12,11 @@
 .overlay i.fa {
     color: #ececec;
     font-size: 60px;
+    cursor: pointer;
+}
+
+.overlay i.fa-close {
+    padding-left: 20px;
 }
 
 .thumbnail:hover .overlay {
