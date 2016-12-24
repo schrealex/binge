@@ -29,6 +29,7 @@ import { SerieService } from './service/serie.service';
 import { ActorService } from './service/actors.service';
 
 import { DateFormatPipe } from "./util/date-format.pipe";
+import { DetailComponent } from "./movies/details/detail.component";
 
 @NgModule({
     imports: [
@@ -50,6 +51,7 @@ import { DateFormatPipe } from "./util/date-format.pipe";
         MovieDetailComponent,
         SeriesComponent,
         SerieDetailComponent,
+        DetailComponent,
         PersonDetailComponent,
         SearchPersonsComponent,
         GamesComponent,

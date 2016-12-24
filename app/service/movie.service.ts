@@ -114,6 +114,7 @@ export class MovieService
 
     getMovieInformation(movie: Movie): Observable<MovieInformation>
     {
+        console.log(movie);
         console.log(movieInformationUrl(movie.id));
 
         return this.http.get(movieInformationUrl(movie.id)).flatMap(response => {

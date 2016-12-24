@@ -22,19 +22,16 @@ export class MovieDetailComponent
 
     constructor(private movieService: MovieService)
     {
-        this.getMovieInformation(this.movie);
+
     }
 
     ngOnChanges(changes: SimpleChange)
     {
-        console.log('HIER');
-        console.log(changes);
-        // this.getMovieInformation(this.movie);
+        this.getMovieInformation(this.movie);
     }
 
     getMovieInformation(movie: Movie)
     {
-        debugger;
         this.movieService.getMovieInformation(movie)
             .subscribe(
                 movieData =>

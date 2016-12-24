@@ -16,12 +16,16 @@ import { ActivatedRoute } from '@angular/router';
 
 export class DetailComponent {
     
-    @Input() movie: Movie;
+    private movie: Movie;
+
     @Output() addFavorite = new EventEmitter();
 
     movieInformation: MovieInformation;
 
     constructor(private route: ActivatedRoute, private movieService: MovieService) {
+        let movieTitle = this.route.snapshot.params['title'];
+        let movieId = this.route.snapshot.params['id'];
+        this.movie = new Movie(movieId, movieTitle, '', null, '', '', '', [], 0, 0, false);
         this.getMovieInformation(this.movie);
     }
 

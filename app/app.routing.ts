@@ -10,6 +10,7 @@ import { SeriesComponent } from "./components/series/series.component";
 import { PersonDetailComponent } from "./components/persons/details/person-detail.component";
 import { SearchPersonsComponent } from "./components/persons/search/search-persons.component";
 import { GamesComponent } from './games.component';
+import { DetailComponent } from "./movies/details/detail.component";
 
 const appRoutes: Routes = [
     {
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'movie/detail/:title/:id',
-        component: MovieDetailComponent
+        component: DetailComponent
     },
     {
         path: 'movie/add',
