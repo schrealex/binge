@@ -45,11 +45,11 @@ export class MovieDetailComponent
     }
 
     getMoviePoster(movie: Movie): string {
-        return new Util().getMoviePoster(movie);
+        return new Util().getImage(movie.posterPath, null, 'Poster');
     }
 
     getProfileImage(person: Person): string {
-        return new Util().getProfileImage(person, 'w45');
+        return new Util().getImage(person.profilePath, 'w45', 'Profile');
     }
 
     onAddFavorite() {

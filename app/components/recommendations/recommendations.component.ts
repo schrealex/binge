@@ -38,7 +38,7 @@ export class RecommendationsComponent implements OnInit
     }
 
     getMoviePoster(movie: Movie): string {
-        return new Util().getMoviePoster(movie);
+        return new Util().getImage(movie.posterPath, null, 'Poster');
     }
 
     gotoDetail(movie: Movie): void

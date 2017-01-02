@@ -6,53 +6,47 @@ import { Util } from '../../util/movie.util';
 import { Person } from '../../model/person';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
     moduleId: module.id,
     selector: 'detail',
     templateUrl: 'detail.component.html',
     styleUrls: ['detail.component.css']
 })
-
 export class DetailComponent {
     
     private movie: Movie;
+    private movieId;
+    private movieTitle;
 
     @Output() addFavorite = new EventEmitter();
 
     movieInformation: MovieInformation;
 
     constructor(private route: ActivatedRoute, private movieService: MovieService) {
-        let movieTitle = this.route.snapshot.params['title'];
-        let movieId = this.route.snapshot.params['id'];
-        this.movie = new Movie(movieId, movieTitle, '', null, '', '', '', [], 0, 0, false);
-        this.getMovieInformation(this.movie);
+        this.movieTitle = this.route.snapshot.params['title'];
+        this.movieId = this.route.snapshot.params['id'];
+
+        this.getMovieInformation(this.movieId);
     }
 
-    ngOnChanges(changes: SimpleChange) {
-        console.log('HIER');
-        console.log(changes);
-        // this.getMovieInformation(this.movie);
-    }
-
-    getMovieInformation(movie: Movie) {
-        this.movieService.getMovieInformation(movie)
+    getMovieInformation(id: number) {
+        this.movieService.getMovieInformation(id, false)
             .subscribe(
             movieData => {
                 this.movieInformation = movieData;
                 console.log(this.movieInformation);
             },
             error => console.log('ERROR: ' + error),
-            () => console.log('Retrieving movie information for', movie.title, 'complete.')
+            () => console.log('Retrieving movie information for', this.movieTitle, 'complete.')
             );
     }
 
     getMoviePoster(movie: Movie): string {
-        return new Util().getMoviePoster(movie);
+        return new Util().getImage(movie.posterPath, null, 'Poster');
     }
 
     getProfileImage(person: Person): string {
-        return new Util().getProfileImage(person, 'w45');
+        return new Util().getImage(person.profilePath, 'w45', 'Profile');
     }
 
     onAddFavorite() {

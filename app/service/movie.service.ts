@@ -96,9 +96,7 @@ export class MovieService
                     }
                 });
             });
-        }).subscribe(response => console.log(response));
-
-
+        }).subscribe();
         return filteredMovies;
     }
 
@@ -112,20 +110,19 @@ export class MovieService
             .catch(this.handleError);
     }
 
-    getMovieInformation(movie: Movie): Observable<MovieInformation>
+    getMovieInformation(movieId: number, favorite: boolean): Observable<MovieInformation>
     {
-        console.log(movie);
-        console.log(movieInformationUrl(movie.id));
+        console.log(movieInformationUrl(movieId));
 
-        return this.http.get(movieInformationUrl(movie.id)).flatMap(response => {
+        return this.http.get(movieInformationUrl(movieId)).flatMap(response => {
             let m = response.json();
             console.log(m);
             let mi: MovieInformation  = new MovieInformation(m.id, m.imdb_id, m.title, m.original_title, m.release_date,
                 m.genres, [], [], [], [], m.runtime, m.poster_path, m.backdrop_path, [], [], m.overview, m.tagline,
-                m.vote_average, m.vote_count, movie.favorite);
+                m.vote_average, m.vote_count, favorite);
 
-            console.log(movieCreditsUrl(movie.id));
-            return this.http.get(movieCreditsUrl(movie.id)).map(response => response.json()).map((m: any) => {
+            console.log(movieCreditsUrl(movieId));
+            return this.http.get(movieCreditsUrl(movieId)).map(response => response.json()).map((m: any) => {
                 m.cast.forEach((a) =>
                 {
                     mi.actors.push(new Actor(a.id, '', '', '', a.credit_id, a.name, null, 'unknown', 'unknown',

@@ -70,7 +70,7 @@ export class SeriesComponent
     }
 
     getSeriePoster(serie: Serie): string {
-        return new Util().getMoviePoster(serie);
+        return new Util().getImage(serie.posterPath, null, 'Poster');
     }
 
     clearMovies()

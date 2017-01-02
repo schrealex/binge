@@ -54,11 +54,11 @@ export class SerieDetailComponent
     }
 
     getSeriePoster(serie: Serie): string {
-        return new Util().getMoviePoster(serie);
+        return new Util().getImage(serie.posterPath, null, 'Poster');
     }
 
     getProfileImage(person: Person): string {
-        return new Util().getProfileImage(person, 'w45');
+        return new Util().getImage(person.profilePath, 'w45', 'Profile');
     }
 
     onAddFavorite() {

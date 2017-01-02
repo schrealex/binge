@@ -21,13 +21,12 @@ export class PersonsComponent {
     }
 
     getProfileImage(person: Person): string {
-        return new Util().getProfileImage(person, 'w45');
+        return new Util().getImage(person.profilePath, 'w45', 'Profile');
     }
 
     gotoPersonDetail(person: Person): void
     {
         let link = ['/person/detail', person.name, person.id];
-        console.log(link);
         this.router.navigate(link);
     }
 }

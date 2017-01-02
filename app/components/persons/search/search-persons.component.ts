@@ -52,11 +52,11 @@ export class SearchPersonsComponent
     }
 
     getProfileImage(person: Person): string {
-        return new Util().getProfileImage(person, 'w45');
+        return new Util().getImage(person.profilePath, 'w45', 'Profile');
     }
 
     getImage(imagePath: string, size: string): string {
-        return new Util().getImageUrl(imagePath, size);
+        return new Util().getImage(imagePath, size, 'Profile');
     }
 
     toggleAdult() {

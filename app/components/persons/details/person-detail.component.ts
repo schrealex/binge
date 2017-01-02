@@ -90,16 +90,16 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
 
     getProfileImage(person: T, size: string): string
     {
-        return new Util().getProfileImage(person, size);
+        return new Util().getImage(person.profilePath, size, 'Profile');
     }
 
     getMoviePoster(media: M, size: string): string
     {
-        return new Util().getMediaPoster(media, size);
+        return new Util().getImage(media.posterPath, size, 'Poster');
     }
 
     getBackdropImage(media: M, size: string): string
     {
-        return new Util().getMediaBackdrop(media, size);
+        return new Util().getImage(media.backdropPath, size, 'Backdrop');
     }
 }

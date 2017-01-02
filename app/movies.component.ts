@@ -51,7 +51,7 @@ export class MoviesComponent
     }
 
     getMoviePoster(movie: Movie): string {
-        return new Util().getMoviePoster(movie);
+        return new Util().getImage(movie.posterPath, null, 'Poster');
     }
 
     toggleAdult() {

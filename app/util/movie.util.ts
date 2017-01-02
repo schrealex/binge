@@ -15,29 +15,18 @@ const dummyProfileUrl = `app/images/profile-small.jpg`;
 
 export class Util
 {
-    getMoviePoster<T extends Media>(media: T): string
+    getImage(filePath: string, size: string, type: string): string
     {
-        return media.posterPath != null ? imageUrl('w342', media.posterPath) : dummyPosterUrl;
-    }
-
-    getMediaPoster<T extends Media>(media: T, size: string): string
-    {
-        return media.posterPath != null ? imageUrl(size, media.posterPath) : dummyPosterUrl;
-    }
-
-    getMediaBackdrop<T extends Media>(media: T, size: string): string
-    {
-        return media.backdropPath != null ? imageUrl(size, media.backdropPath) : dummyPosterUrl;
-    }
-
-    getProfileImage<T extends Person>(person: T, size: string)
-    {
-        console.log(person.profilePath);
-        return person.profilePath != null ? imageUrl(size, person.profilePath) : dummyProfileUrl;
-    }
-
-    getImageUrl(filePath: string, size: string)
-    {
-        return imageUrl(size, filePath);
+        let imageSize = size != null ? size : 'w342';
+        if(filePath == null) {
+            switch(type) {
+                case 'Poster':
+                case 'Backdrop':
+                    return dummyPosterUrl;
+                case 'Profile':
+                    return dummyProfileUrl;
+            }
+        }
+        return imageUrl(imageSize, filePath);
     }
 }
