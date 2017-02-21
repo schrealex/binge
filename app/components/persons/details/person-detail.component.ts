@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Person } from "../../../model/person";
 
@@ -9,6 +9,7 @@ import { Util } from "../../../util/movie.util";
 import { ActorService } from "../../../service/actors.service";
 import { CarouselOptions } from "../../carousel/carousel-options";
 import { Media } from "../../../model/media";
+import { Movie } from '../../../model/movie';
 
 @Component({
     moduleId: module.id,
@@ -24,7 +25,7 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
 
     private carouselOptions: CarouselOptions = new CarouselOptions('profilePicturesCarousel', true, 0, 200, 'w185', '');
 
-    constructor(private actorService: ActorService, private route: ActivatedRoute, private title: Title)
+    constructor(private actorService: ActorService, private route: ActivatedRoute, private router: Router, private title: Title)
     {
 
     }
@@ -48,6 +49,7 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
             .subscribe(
                 personDetailData =>
                 {
+                    console.log(personDetailData);
                     this.person = <T>personDetailData;
                 },
                 error => console.log('ERROR: ' + error),
@@ -81,6 +83,13 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
                     console.log('Searching person with name', actorName, 'complete.');
                 }
             );
+    }
+
+    gotoDetail(movie: Movie): void
+    {
+        let link = ['/movie/detail', movie.title, movie.id];
+        console.log(link);
+        this.router.navigate(link);
     }
 
     setTitle()

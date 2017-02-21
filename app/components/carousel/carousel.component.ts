@@ -25,7 +25,7 @@ export class CarouselComponent {
 
     }
 
-    getImage(size: string, imagePath: string): string {
+    getImage(imagePath: string, size: string): string {
         return new Util().getImage(imagePath, size, 'poster');
     }
 }
