@@ -32,7 +32,7 @@ export class MovieDetailComponent
 
     getMovieInformation(movie: Movie)
     {
-        this.movieService.getMovieInformation(movie)
+        this.movieService.getMovieInformation(movie.id, movie.favorite)
             .subscribe(
                 movieData =>
                 {

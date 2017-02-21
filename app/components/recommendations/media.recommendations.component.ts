@@ -47,7 +47,7 @@ export class MediaRecommendationsComponent<T extends Media>
 
     getMediaPoster(media: Media): string
     {
-        return new Util().getMediaPoster(media, 'w250_and_h141_bestv2');
+        return new Util().getImage(media.posterPath, 'w250_and_h141_bestv2', 'poster');
     }
 
     onScrollScrollLeft(event: any)
