@@ -25,7 +25,7 @@
     <div class="row">
         <div *ngFor="let credits of person.castCredits | slice:0:8">
             <div *ngIf="credits.movie != null" class="col-md-3">
-                <div class="thumbnail" (click)="gotoDetail(credits.movie)" style="height: 410px; cursor: pointer;">
+                <div class="thumbnail" (click)="gotoDetail(credits.id, credits.movie.title)" style="height: 410px; cursor: pointer;">
                     <img *ngIf="credits.movie" [src]="getMoviePoster(credits.movie, 'w342')" style="height: 340px;">
                     <p style="text-align: center; font-weight: bold;">{{ credits.movie.title }}</p>
                 </div>
@@ -33,11 +33,13 @@
         </div>
     </div>
 
-    <a (click)="open = !open" data-toggle="collapse" href="#moreMovies"><h3><i class="fa" [ngClass]="open ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> More movies...</h3></a>
+    <a *ngIf="person.castCredits.length > 8" (click)="open = !open" data-toggle="collapse" href="#moreMovies">
+        <h3><i class="fa" [ngClass]="open ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> More movies...</h3>
+    </a>
     <div id="moreMovies" class="panel-collapse collapse row">
         <div *ngFor="let credits of person.castCredits | slice:8">
             <div *ngIf="credits.movie != null" class="col-md-3">
-                <div class="thumbnail" style="height: 410px;">
+                <div class="thumbnail" (click)="gotoDetail(credits.id, credits.movie.title)" style="height: 410px; cursor: pointer;">
                     <img *ngIf="credits.movie" [src]="getMoviePoster(credits.movie, 'w342')" style="height: 340px;">
                     <p style="text-align: center; font-weight: bold;">{{ credits.movie.title }}</p>
                 </div>
@@ -45,11 +47,13 @@
         </div>
     </div>
 
-    <a (click)="seriesOpen = !seriesOpen" data-toggle="collapse" href="#series"><h3><i class="fa" [ngClass]="seriesOpen ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> TV Series</h3></a>
+    <a *ngIf="person.castCredits.length > 0" (click)="seriesOpen = !seriesOpen" data-toggle="collapse" href="#series">
+        <h3><i class="fa" [ngClass]="seriesOpen ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> TV Series</h3>
+    </a>
     <div id="series" class="panel-collapse collapse row">
         <div *ngFor="let credits of person.castCredits">
             <div *ngIf="credits.serie != null" class="col-md-3">
-                <div class="thumbnail" style="height: 410px;">
+                <div class="thumbnail" (click)="gotoDetail(credits.id, credits.serie.title)" style="height: 410px; cursor: pointer;">
                     <img *ngIf="credits.serie" [src]="getMoviePoster(credits.serie, 'w342')" style="height: 340px;">
                     <p style="text-align: center; font-weight: bold;">{{ credits.serie.title }}</p>
                 </div>
@@ -57,12 +61,17 @@
         </div>
     </div>
 
-    <a (click)="productionOpen = !productionOpen" data-toggle="collapse" href="#production"><h3><i class="fa" [ngClass]="productionOpen ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> Production</h3></a>
+    <a *ngIf="person.crewCredits.length > 0" (click)="productionOpen = !productionOpen" data-toggle="collapse" href="#production">
+        <h3><i class="fa" [ngClass]="productionOpen ? 'fa-angle-up' : 'fa-angle-down'" aria-hidden="true"></i> Production</h3>
+    </a>
+
     <div id="production" class="panel-collapse collapse row">
         <div *ngFor="let credits of person.crewCredits">
             <div class="col-md-3">
                 <div class="thumbnail" style="height: 410px;">
+                    <div *ngIf="credits.movie" class="thumbnail" (click)="gotoDetail(credits.id, credits.movie.title)" style="height: 410px; cursor: pointer;">
                     <img *ngIf="credits.movie" [src]="getMoviePoster(credits.movie, 'w342')" style="height: 340px;">
+                    <div *ngIf="credits.serie" class="thumbnail" (click)="gotoDetail(credits.id, credits.serie.title)" style="height: 410px; cursor: pointer;">
                     <img *ngIf="credits.serie" [src]="getMoviePoster(credits.serie, 'w342')" style="height: 340px;">
                     <p style="text-align: center; font-weight: bold;">{{ credits.movie != null ? credits.movie.title : credits.serie.title }}</p>
                 </div>
@@ -71,3 +80,4 @@
     </div>
 
 </div>
+

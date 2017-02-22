@@ -48,7 +48,7 @@ export class ApiAuthenticationService
                             }
                         })
                         .catch(this.handleError);
-                    }               
+                    }
                 })
                 .catch(this.handleError);
             }

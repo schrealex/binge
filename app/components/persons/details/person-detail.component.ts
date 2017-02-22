@@ -85,9 +85,9 @@ export class PersonDetailComponent<T extends Person, M extends Media> implements
             );
     }
 
-    gotoDetail(movie: Movie): void
+    gotoDetail(movieId: string, movieTitle: string): void
     {
-        let link = ['/movie/detail', movie.title, movie.id];
+        let link = ['/movie/detail', movieTitle, movieId];
         console.log(link);
         this.router.navigate(link);
     }
